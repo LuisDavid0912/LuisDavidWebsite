@@ -49,14 +49,14 @@ function createAppTheme(mode: ThemeMode) {
       mode,
       primary: {
         main: brandColors.primary,
-        light: '#3358e0',
-        dark: '#0122a8',
+        light: '#012fd6',
+        dark: '#012fd6',
         contrastText: brandColors.white,
       },
       secondary: {
         main: brandColors.secondary,
-        light: '#5ffffa',
-        dark: '#00ccc6',
+        light: '#0efff8',
+        dark: '#0efff8',
         contrastText: brandColors.black,
       },
       background: {
