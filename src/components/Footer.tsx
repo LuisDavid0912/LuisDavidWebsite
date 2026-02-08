@@ -1,10 +1,21 @@
+'use client';
+
 import { Box, Container, Typography, Stack, IconButton, Link } from '@mui/material';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
+import { alpha } from '@mui/material/styles';
 import { siteContent } from '@/content/site';
+import { brandColors, alphaLevels } from '@/theme/tokens';
 
 export default function Footer() {
+  // Footer always uses white text on primary background
+  // Compute colors at runtime using alpha()
+  const hoverBg = alpha(brandColors.white, alphaLevels.accentBg);
+  const linkColor = alpha(brandColors.white, 0.8);
+  const borderColor = alpha(brandColors.white, alphaLevels.accentChip);
+  const mutedText = alpha(brandColors.white, alphaLevels.textSecondary);
+
   return (
     <Box
       component="footer"
@@ -38,7 +49,7 @@ export default function Footer() {
               sx={{
                 color: 'inherit',
                 '&:hover': {
-                  bgcolor: 'rgba(255, 255, 255, 0.15)',
+                  bgcolor: hoverBg,
                 },
               }}
             >
@@ -53,7 +64,7 @@ export default function Footer() {
               sx={{
                 color: 'inherit',
                 '&:hover': {
-                  bgcolor: 'rgba(255, 255, 255, 0.15)',
+                  bgcolor: hoverBg,
                 },
               }}
             >
@@ -66,7 +77,7 @@ export default function Footer() {
               sx={{
                 color: 'inherit',
                 '&:hover': {
-                  bgcolor: 'rgba(255, 255, 255, 0.15)',
+                  bgcolor: hoverBg,
                 },
               }}
             >
@@ -84,7 +95,7 @@ export default function Footer() {
                 key={link.label}
                 href={link.href}
                 sx={{
-                  color: 'rgba(255, 255, 255, 0.8)',
+                  color: linkColor,
                   textDecoration: 'none',
                   fontSize: '0.875rem',
                   '&:hover': {
@@ -98,12 +109,12 @@ export default function Footer() {
           </Stack>
         </Stack>
 
-        <Box sx={{ mt: 4, pt: 3, borderTop: 1, borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+        <Box sx={{ mt: 4, pt: 3, borderTop: 1, borderColor: borderColor }}>
           <Typography
             variant="body2"
             sx={{
               textAlign: 'center',
-              color: 'rgba(255, 255, 255, 0.7)',
+              color: mutedText,
             }}
           >
             {siteContent.footer.copyright}

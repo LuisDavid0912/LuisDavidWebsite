@@ -1,12 +1,28 @@
 'use client';
 
-import { Box, Container, Typography, Stack } from '@mui/material';
+import { Box, Container, Typography, Stack, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import Link from 'next/link';
 import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
 import { siteContent } from '@/content/site';
+import { brandColors, alphaLevels } from '@/theme/tokens';
 
 export default function Hero() {
+  const theme = useTheme();
+  const isLight = theme.palette.mode === 'light';
+
+  // Compute colors at runtime using alpha()
+  const gradientEnd = isLight
+    ? alpha(brandColors.primary, alphaLevels.gradientSubtle)
+    : alpha(brandColors.secondary, alphaLevels.gradientSecondary);
+  
+  const gradientMid = isLight
+    ? alpha(brandColors.black, alphaLevels.paperLight)
+    : alpha(brandColors.white, alphaLevels.gradientSubtle);
+
+  const glowColor = alpha(brandColors.secondary, isLight ? 0.08 : 0.05);
+
   return (
     <Box
       id="inicio"
@@ -14,17 +30,10 @@ export default function Hero() {
         minHeight: '90vh',
         display: 'flex',
         alignItems: 'center',
-        // Theme-aware gradient background
-        background: (theme) => 
-          theme.palette.mode === 'light'
-            ? `linear-gradient(135deg, 
-                ${theme.palette.background.default} 0%, 
-                ${theme.palette.background.paper} 50%,
-                rgba(1, 47, 214, 0.03) 100%)`
-            : `linear-gradient(135deg, 
-                ${theme.palette.background.default} 0%, 
-                ${theme.palette.background.paper} 50%,
-                rgba(14, 255, 248, 0.03) 100%)`,
+        background: `linear-gradient(135deg, 
+          ${isLight ? brandColors.white : brandColors.black} 0%, 
+          ${gradientMid} 50%,
+          ${gradientEnd} 100%)`,
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
@@ -34,11 +43,7 @@ export default function Hero() {
           right: '-20%',
           width: '60%',
           height: '150%',
-          // Decorative glow using secondary color
-          background: (theme) => 
-            theme.palette.mode === 'light'
-              ? `radial-gradient(circle, rgba(14, 255, 248, 0.08) 0%, transparent 70%)`
-              : `radial-gradient(circle, rgba(14, 255, 248, 0.05) 0%, transparent 70%)`,
+          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
           pointerEvents: 'none',
         },
       }}
