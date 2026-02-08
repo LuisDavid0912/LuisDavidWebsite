@@ -39,7 +39,7 @@ export default function Section({
               <Typography
                 variant="body2"
                 sx={{
-                  color: 'secondary.main',
+                  color: 'primary.main',
                   fontWeight: 600,
                   textTransform: 'uppercase',
                   letterSpacing: '0.1em',

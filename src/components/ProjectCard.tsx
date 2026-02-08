@@ -15,11 +15,7 @@ export default function ProjectCard({ title, description, tags, link }: ProjectC
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-        '&:hover': {
-          transform: 'translateY(-4px)',
-          boxShadow: '0 12px 24px -8px rgba(0, 0, 0, 0.15)',
-        },
+        // Card hover handled by theme components override
       }}
     >
       <CardContent sx={{ flexGrow: 1 }}>
@@ -43,11 +39,7 @@ export default function ProjectCard({ title, description, tags, link }: ProjectC
               key={tag}
               label={tag}
               size="small"
-              sx={{
-                backgroundColor: 'rgba(49, 151, 149, 0.1)',
-                color: 'secondary.dark',
-                fontWeight: 500,
-              }}
+              // Chip styling handled by theme components override
             />
           ))}
         </Box>
@@ -62,7 +54,7 @@ export default function ProjectCard({ title, description, tags, link }: ProjectC
               display: 'flex',
               alignItems: 'center',
               gap: 0.5,
-              color: 'secondary.main',
+              color: 'primary.main',
               textDecoration: 'none',
               fontWeight: 600,
               '&:hover': {

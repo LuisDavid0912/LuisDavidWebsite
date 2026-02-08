@@ -1,18 +1,12 @@
 'use client';
 
 import { Box, Container, Typography, Stack } from '@mui/material';
+import Link from 'next/link';
 import PrimaryButton from './PrimaryButton';
 import SecondaryButton from './SecondaryButton';
 import { siteContent } from '@/content/site';
 
 export default function Hero() {
-  const handleClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <Box
       id="inicio"
@@ -20,7 +14,17 @@ export default function Hero() {
         minHeight: '90vh',
         display: 'flex',
         alignItems: 'center',
-        background: 'linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%)',
+        // Theme-aware gradient background
+        background: (theme) => 
+          theme.palette.mode === 'light'
+            ? `linear-gradient(135deg, 
+                ${theme.palette.background.default} 0%, 
+                ${theme.palette.background.paper} 50%,
+                rgba(1, 47, 214, 0.03) 100%)`
+            : `linear-gradient(135deg, 
+                ${theme.palette.background.default} 0%, 
+                ${theme.palette.background.paper} 50%,
+                rgba(14, 255, 248, 0.03) 100%)`,
         position: 'relative',
         overflow: 'hidden',
         '&::before': {
@@ -30,7 +34,11 @@ export default function Hero() {
           right: '-20%',
           width: '60%',
           height: '150%',
-          background: 'radial-gradient(circle, rgba(49, 151, 149, 0.08) 0%, transparent 70%)',
+          // Decorative glow using secondary color
+          background: (theme) => 
+            theme.palette.mode === 'light'
+              ? `radial-gradient(circle, rgba(14, 255, 248, 0.08) 0%, transparent 70%)`
+              : `radial-gradient(circle, rgba(14, 255, 248, 0.05) 0%, transparent 70%)`,
           pointerEvents: 'none',
         },
       }}
@@ -40,7 +48,7 @@ export default function Hero() {
           <Typography
             variant="body2"
             sx={{
-              color: 'secondary.main',
+              color: 'primary.main',
               fontWeight: 600,
               textTransform: 'uppercase',
               letterSpacing: '0.15em',
@@ -75,10 +83,16 @@ export default function Hero() {
             direction={{ xs: 'column', sm: 'row' }}
             spacing={2}
           >
-            <PrimaryButton onClick={() => handleClick(siteContent.hero.ctaPrimary.href)}>
+            <PrimaryButton
+              component={Link}
+              href={siteContent.hero.ctaPrimary.href}
+            >
               {siteContent.hero.ctaPrimary.label}
             </PrimaryButton>
-            <SecondaryButton onClick={() => handleClick(siteContent.hero.ctaSecondary.href)}>
+            <SecondaryButton
+              component={Link}
+              href={siteContent.hero.ctaSecondary.href}
+            >
               {siteContent.hero.ctaSecondary.label}
             </SecondaryButton>
           </Stack>

@@ -10,8 +10,8 @@ export default function Footer() {
       component="footer"
       sx={{
         py: 6,
-        backgroundColor: 'primary.main',
-        color: 'white',
+        bgcolor: 'primary.main',
+        color: 'primary.contrastText',
       }}
     >
       <Container maxWidth="lg">
@@ -36,9 +36,9 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label="LinkedIn"
               sx={{
-                color: 'white',
+                color: 'inherit',
                 '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  bgcolor: 'rgba(255, 255, 255, 0.15)',
                 },
               }}
             >
@@ -51,9 +51,9 @@ export default function Footer() {
               rel="noopener noreferrer"
               aria-label="GitHub"
               sx={{
-                color: 'white',
+                color: 'inherit',
                 '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  bgcolor: 'rgba(255, 255, 255, 0.15)',
                 },
               }}
             >
@@ -64,9 +64,9 @@ export default function Footer() {
               href={siteContent.social.email}
               aria-label="Email"
               sx={{
-                color: 'white',
+                color: 'inherit',
                 '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  bgcolor: 'rgba(255, 255, 255, 0.15)',
                 },
               }}
             >
@@ -74,7 +74,11 @@ export default function Footer() {
             </IconButton>
           </Stack>
 
-          <Stack direction="row" spacing={3}>
+          <Stack 
+            direction="row" 
+            spacing={3}
+            sx={{ display: { xs: 'none', md: 'flex' } }}
+          >
             {siteContent.navbar.links.map((link) => (
               <Link
                 key={link.label}
@@ -84,7 +88,7 @@ export default function Footer() {
                   textDecoration: 'none',
                   fontSize: '0.875rem',
                   '&:hover': {
-                    color: 'white',
+                    color: 'primary.contrastText',
                   },
                 }}
               >
@@ -94,7 +98,7 @@ export default function Footer() {
           </Stack>
         </Stack>
 
-        <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid rgba(255, 255, 255, 0.2)' }}>
+        <Box sx={{ mt: 4, pt: 3, borderTop: 1, borderColor: 'rgba(255, 255, 255, 0.2)' }}>
           <Typography
             variant="body2"
             sx={{
