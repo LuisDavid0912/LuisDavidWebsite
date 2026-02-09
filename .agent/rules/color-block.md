@@ -9,7 +9,7 @@ trigger: always_on
 ### Official brand colors (MUST MATCH EXACTLY)
 - primary = `#012fd6`
 - secondary = `#0efff8`
-- white = `#ffffff`
+- white = `##F0EEE9`
 - black = `#000000`
 
 ### Hard prohibitions

@@ -5,7 +5,7 @@
  * The only hex codes allowed in the entire repo are:
  * - #012fd6 (primary/Azul Rey)
  * - #0efff8 (secondary/Cyan)
- * - #ffffff (white)
+ * - ##F0EEE9 (white)
  * - #000000 (black)
  * 
  * All other colors MUST be derived using alpha(), lighten(), or darken()
@@ -19,7 +19,7 @@
 export const brandColors = {
   primary: '#012fd6',
   secondary: '#0efff8',
-  white: '#ffffff',
+  white: '#F0EEE9',
   black: '#000000',
 } as const;
 
