@@ -360,9 +360,13 @@ export const siteContent = {
   },
 
   social: {
-    linkedin: 'https://linkedin.com/in/luisdavidmag',
-    github: 'https://github.com/luisdavidmag',
-    email: 'mailto:contacto@luisdavidmag.com',
+    linkedin: 'https://www.linkedin.com/in/luisdavidmag/',
+    github: 'https://github.com/LuisDavid0912',
+    email: 'mailto:yosoy@luisdavidmag.com',
+    instagram: '#',
+    youtube: '#',
+    tiktok: '#',
+    x: '#',
   },
 
   footer: {
