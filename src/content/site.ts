@@ -355,7 +355,7 @@ export const siteContent = {
     title: 'Contacto',
     subtitle: '¿Tienes un proyecto en mente?',
     description: 'Estoy disponible para proyectos freelance, consultoría o colaboraciones. ¡Hablemos sobre cómo puedo ayudarte!',
-    email: 'contacto@luisdavidmag.com',
+    email: 'yosoy@luisdavidmag.com',
     ctaLabel: 'Enviar email',
   },
 

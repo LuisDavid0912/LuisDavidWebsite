@@ -1,5 +1,5 @@
 import { Box, Typography, Grid, Card, CardContent, Stack, Chip, Divider } from '@mui/material';
-import { Section, PrimaryButton } from '@/components';
+import { Section, PrimaryButton, ResponsiveImage } from '@/components';
 import Link from 'next/link';
 import { siteContent } from '@/content/site';
 
@@ -96,6 +96,34 @@ export default function AboutPage() {
               </Card>
             </Grid>
           ))}
+        </Grid>
+      </Section>
+
+      {/* Gallery Section */}
+      <Section
+        title="Galería"
+        subtitle="Un poco más sobre mí"
+        background="alt"
+      >
+        <Grid container spacing={4}>
+            <Grid item xs={12} md={6}>
+            <ResponsiveImage 
+                src="/images/photos/originales/CSentadoPisoConMac.jpg" 
+                alt="Luis David trabajando" 
+                variant="card"
+                aspectRatio="4/3"
+                sx={{ borderRadius: 2 }}
+            />
+            </Grid>
+            <Grid item xs={12} md={6}>
+            <ResponsiveImage 
+                src="/images/photos/originales/KParadoSonriendo.jpg" 
+                alt="Conferencia" 
+                variant="card"
+                aspectRatio="4/3"
+                sx={{ borderRadius: 2 }}
+            />
+            </Grid>
         </Grid>
       </Section>
 

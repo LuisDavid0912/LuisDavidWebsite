@@ -6,3 +6,4 @@ export { default as PrimaryButton } from './PrimaryButton';
 export { default as SecondaryButton } from './SecondaryButton';
 export { default as ProjectCard } from './ProjectCard';
 export { default as LegalLayout } from './LegalLayout';
+export { default as ResponsiveImage } from './ResponsiveImage';
