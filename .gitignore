@@ -33,4 +33,4 @@ yarn-error.log*
 next-env.d.ts
 
 #fotos
-public/images/photos
+public/images/photos/ligeros
