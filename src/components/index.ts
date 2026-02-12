@@ -7,3 +7,5 @@ export { default as SecondaryButton } from './SecondaryButton';
 export { default as ProjectCard } from './ProjectCard';
 export { default as LegalLayout } from './LegalLayout';
 export { default as ResponsiveImage } from './ResponsiveImage';
+export { default as LeadCaptureForm } from './forms/LeadCaptureForm';
+export { default as ResourceCard } from './ResourceCard';

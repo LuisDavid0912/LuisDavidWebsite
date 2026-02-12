@@ -1,6 +1,6 @@
 import { Box, Typography, Grid, Card, CardContent, Stack, Chip } from '@mui/material';
 import Link from 'next/link';
-import { Hero, Section, PrimaryButton, ProjectCard } from '@/components';
+import { Hero, Section, PrimaryButton, ProjectCard, LeadCaptureForm } from '@/components';
 import { siteContent } from '@/content/site';
 
 export default function Home() {
@@ -205,6 +205,31 @@ export default function Home() {
             </Grid>
           ))}
         </Grid>
+      </Section>
+
+      {/* Newsletter Section */}
+      <Section
+        id="newsletter"
+        title={siteContent.newsletter.title}
+        subtitle={siteContent.newsletter.subtitle}
+        background="alt"
+        centered
+      >
+        <Typography
+          variant="body1"
+          sx={{
+            color: 'text.secondary',
+            mb: 5,
+            maxWidth: 600,
+            mx: 'auto',
+            textAlign: 'center',
+            fontSize: { xs: '1rem', md: '1.125rem' },
+            lineHeight: 1.8,
+          }}
+        >
+          {siteContent.newsletter.description}
+        </Typography>
+        <LeadCaptureForm />
       </Section>
 
       {/* CTA Section */}

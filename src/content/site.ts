@@ -12,6 +12,7 @@ export const siteContent = {
       { label: 'Inicio', href: '/' },
       { label: 'Sobre mí', href: '/about' },
       { label: 'Proyectos', href: '/projects' },
+      { label: 'Recursos', href: '/resources' },
       { label: 'Contacto', href: '/contact' },
     ],
   },
@@ -125,6 +126,26 @@ export const siteContent = {
     description: 'Estoy aquí para ayudarte a transformar tus ideas en soluciones tecnológicas. Ya sea que necesites automatizar procesos, construir pipelines de datos o implementar inteligencia artificial, hablemos sobre cómo puedo aportar valor a tu proyecto.',
     buttonLabel: 'Contactar Ahora',
     buttonHref: '/contact',
+  },
+
+  newsletter: {
+    subtitle: 'Newsletter',
+    title: 'Mantente al Día con las Últimas Tendencias',
+    description: 'Recibe insights sobre Data Engineering, Automatización e IA directamente en tu bandeja de entrada.',
+    namePlaceholder: 'Tu nombre',
+    nameLabel: 'Nombre',
+    emailPlaceholder: 'tu@email.com',
+    emailLabel: 'Correo electrónico',
+    buttonLabel: 'Recibir novedades',
+    disclaimer: 'Sin spam. Puedes darte de baja cuando quieras.',
+    successMessage: '¡Gracias por suscribirte! Pronto recibirás novedades.',
+    errorMessage: 'Hubo un problema al registrarte. Por favor, inténtalo de nuevo.',
+    validation: {
+      nameMin: 'El nombre debe tener al menos 2 caracteres.',
+      emailInvalid: 'Por favor, introduce un correo electrónico válido.',
+      nameRequired: 'El nombre es obligatorio.',
+      emailRequired: 'El correo electrónico es obligatorio.',
+    },
   },
 
   // =============================================
@@ -347,6 +368,50 @@ export const siteContent = {
         description: 'Pipeline de extracción y transformación de datos de múltiples marketplaces.',
         tags: ['Python', 'dbt', 'Snowflake', 'Dagster'],
         link: '#',
+      },
+    ],
+  },
+
+  // =============================================
+  // RESOURCES PAGE
+  // =============================================
+
+  resources: {
+    subtitle: 'Recursos Gratis',
+    title: 'Aprende con Materiales Gratuitos',
+    description: 'Guías, plantillas y recursos prácticos sobre Data Engineering, Automatización e IA. Solo necesitas tu nombre y correo para descargarlos.',
+    emptyMessage: 'Próximamente habrá recursos disponibles. ¡Vuelve pronto!',
+    form: {
+      buttonLabel: 'Descargar gratis',
+      successMessage: '¡Listo! Tu descarga está disponible.',
+      dialogTitle: 'Accede al recurso gratis',
+      dialogDescription: 'Ingresa tu nombre y correo para descargar este recurso. Sin spam, lo prometemos.',
+      downloadButtonLabel: 'Descargar ahora',
+    },
+    items: [
+      {
+        slug: 'guia-data-engineering',
+        title: 'Guía de Data Engineering',
+        description: 'Aprende los fundamentos del Data Engineering moderno: pipelines, ETL/ELT, herramientas y mejores prácticas para construir arquitecturas de datos escalables.',
+        type: 'pdf',
+        tags: ['Data Engineering', 'ETL', 'Pipelines'],
+        downloadUrl: 'https://supabase.luisdavidmag.com/storage/v1/object/public/resources//CV_LuisDavid.pdf',
+      },
+      {
+        slug: 'plantilla-automatizacion-n8n',
+        title: 'Plantilla de Automatización con n8n',
+        description: 'Template listo para usar con los flujos de automatización más comunes: captación de leads, notificaciones y sincronización de datos entre plataformas.',
+        type: 'pdf',
+        tags: ['n8n', 'Automatización', 'Templates'],
+        downloadUrl: '#',
+      },
+      {
+        slug: 'checklist-ia-negocio',
+        title: 'Checklist: IA para tu Negocio',
+        description: 'Una checklist práctica para evaluar dónde y cómo implementar inteligencia artificial en tu empresa. Incluye criterios de decisión y casos de uso reales.',
+        type: 'pdf',
+        tags: ['IA', 'Negocio', 'Estrategia'],
+        downloadUrl: '#',
       },
     ],
   },
