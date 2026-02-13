@@ -428,10 +428,11 @@ export const siteContent = {
     linkedin: 'https://www.linkedin.com/in/luisdavidmag/',
     github: 'https://github.com/LuisDavid0912',
     email: 'mailto:yosoy@luisdavidmag.com',
-    instagram: '#',
-    youtube: '#',
-    tiktok: '#',
-    x: '#',
+    instagram: 'https://www.instagram.com/luisdavid.mag/',
+    youtube: 'https://www.youtube.com/channel/UCbIGQZdHSaTeZqt3ZvV1s4A',
+    tiktok: 'https://www.tiktok.com/@luisdavidmag?lang=es-419',
+    x: 'https://x.com/LuisDavidMag',
+    skool: 'https://skool.com/@luis-david-7838',
   },
 
   footer: {

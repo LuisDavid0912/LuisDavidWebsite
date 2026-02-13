@@ -7,6 +7,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import XIcon from '@mui/icons-material/X';
+
 import { alpha } from '@mui/material/styles';
 import { siteContent } from '@/content/site';
 import { brandColors, alphaLevels } from '@/theme/tokens';
@@ -37,6 +38,23 @@ export default function Footer() {
     { href: siteContent.social.youtube, icon: <YouTubeIcon />, label: 'YouTube' },
     { href: siteContent.social.tiktok, icon: <TikTokIcon />, label: 'TikTok' },
     { href: siteContent.social.x, icon: <XIcon />, label: 'X (Twitter)' },
+    { 
+      href: siteContent.social.skool, 
+      icon: (
+        <Box 
+          component="img" 
+          src="/images/photos/skoollogo.png" 
+          alt="Skool" 
+          sx={{ 
+            width: 24, 
+            height: 24, 
+            objectFit: 'contain',
+            filter: 'brightness(0) invert(1)', // Make it white to match other icons
+          }} 
+        />
+      ), 
+      label: 'Skool' 
+    },
   ];
 
   return (
