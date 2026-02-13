@@ -113,6 +113,7 @@ export default function ResourceCard({
               WebkitLineClamp: 3,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
+              textAlign: { xs: 'left', md: 'justify' },
             }}
           >
             {description}

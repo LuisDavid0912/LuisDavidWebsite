@@ -21,6 +21,7 @@ export default function AboutPage() {
               maxWidth: 700,
               fontSize: { xs: '1.125rem', md: '1.25rem' },
               lineHeight: 1.8,
+              textAlign: { xs: 'left', md: 'justify' },
             }}
           >
             {siteContent.aboutHero.intro}
@@ -44,6 +45,7 @@ export default function AboutPage() {
                 color: 'text.secondary',
                 fontSize: { xs: '1rem', md: '1.125rem' },
                 lineHeight: 1.9,
+                textAlign: { xs: 'left', md: 'justify' },
               }}
             >
               {p}
@@ -171,7 +173,12 @@ export default function AboutPage() {
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ color: 'inherit', opacity: 0.85, lineHeight: 1.7 }}
+                sx={{
+                  color: 'inherit',
+                  opacity: 0.85,
+                  lineHeight: 1.7,
+                  textAlign: { xs: 'left', md: 'justify' },
+                }}
               >
                 {item.description}
               </Typography>
@@ -210,7 +217,11 @@ export default function AboutPage() {
                 </Typography>
                 <Typography
                   variant="body1"
-                  sx={{ color: 'text.secondary', lineHeight: 1.7 }}
+                  sx={{
+                    color: 'text.secondary',
+                    lineHeight: 1.7,
+                    textAlign: { xs: 'left', md: 'justify' },
+                  }}
                 >
                   {value.description}
                 </Typography>
@@ -285,7 +296,7 @@ export default function AboutPage() {
             mb: 6,
             maxWidth: 600,
             mx: 'auto',
-            textAlign: 'center',
+            textAlign: { xs: 'center', md: 'justify' },
             lineHeight: 1.8,
           }}
         >
@@ -304,7 +315,11 @@ export default function AboutPage() {
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: 'text.secondary', lineHeight: 1.7 }}
+                  sx={{
+                    color: 'text.secondary',
+                    lineHeight: 1.7,
+                    textAlign: { xs: 'center', md: 'justify' },
+                  }}
                 >
                   {interest.description}
                 </Typography>
@@ -329,7 +344,7 @@ export default function AboutPage() {
             mb: 5,
             maxWidth: 600,
             mx: 'auto',
-            textAlign: 'center',
+            textAlign: { xs: 'center', md: 'justify' },
             fontSize: { xs: '1rem', md: '1.125rem' },
             lineHeight: 1.8,
           }}

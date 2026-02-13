@@ -19,7 +19,7 @@
 export const brandColors = {
   primary: '#012fd6',
   secondary: '#0efff8',
-  white: '#F0EEE9',
+  white: '#F0EFE9',
   black: '#000000',
 } as const;
 

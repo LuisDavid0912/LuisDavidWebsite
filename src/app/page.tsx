@@ -25,6 +25,7 @@ export default function Home() {
                 color: 'text.secondary',
                 fontSize: { xs: '1rem', md: '1.125rem' },
                 lineHeight: 1.8,
+                textAlign: { xs: 'left', md: 'justify' },
               }}
             >
               {p}
@@ -68,7 +69,11 @@ export default function Home() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    sx={{ color: 'text.secondary', lineHeight: 1.7 }}
+                    sx={{
+                      color: 'text.secondary',
+                      lineHeight: 1.7,
+                      textAlign: { xs: 'left', md: 'justify' },
+                    }}
                   >
                     {service.description}
                   </Typography>
@@ -134,7 +139,7 @@ export default function Home() {
             mb: 6,
             maxWidth: 600,
             mx: 'auto',
-            textAlign: 'center',
+            textAlign: { xs: 'center', md: 'justify' },
           }}
         >
           {siteContent.homeProjects.description}
@@ -181,6 +186,7 @@ export default function Home() {
                     fontStyle: 'italic',
                     mb: 3,
                     lineHeight: 1.8,
+                    textAlign: { xs: 'left', md: 'justify' },
                     '&::before': { content: '"""' },
                     '&::after': { content: '"""' },
                   }}
@@ -222,7 +228,7 @@ export default function Home() {
             mb: 5,
             maxWidth: 600,
             mx: 'auto',
-            textAlign: 'center',
+            textAlign: { xs: 'center', md: 'justify' },
             fontSize: { xs: '1rem', md: '1.125rem' },
             lineHeight: 1.8,
           }}
@@ -247,7 +253,7 @@ export default function Home() {
             mb: 5,
             maxWidth: 600,
             mx: 'auto',
-            textAlign: 'center',
+            textAlign: { xs: 'center', md: 'justify' },
             fontSize: { xs: '1rem', md: '1.125rem' },
             lineHeight: 1.8,
           }}

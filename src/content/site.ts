@@ -1,6 +1,6 @@
 export const siteContent = {
   meta: {
-    title: 'Luis David Mag | Data Engineer & AI Automation Specialist',
+    title: 'Luis David | Data Engineer & AI Automation Specialist',
     description: 'Especialista en Data Engineering, Automatización con n8n e Inteligencia Artificial. Transformando datos en soluciones inteligentes.',
     siteUrl: 'https://luisdavidmag.com',
     ogImage: '/og-image.png',

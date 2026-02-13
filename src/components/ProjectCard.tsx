@@ -29,7 +29,11 @@ export default function ProjectCard({ title, description, tags, link }: ProjectC
         </Typography>
         <Typography
           variant="body2"
-          sx={{ color: 'text.secondary', mb: 2 }}
+          sx={{
+            color: 'text.secondary',
+            mb: 2,
+            textAlign: { xs: 'left', md: 'justify' },
+          }}
         >
           {description}
         </Typography>
