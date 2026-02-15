@@ -16,6 +16,8 @@ interface LeadPayload {
   email: string;
   /** Optional: resource slug when downloading a gated resource */
   resource?: string;
+  /** Optional: contact form message */
+  message?: string;
   /** Override source: defaults to 'website' */
   source?: string;
 }
@@ -40,12 +42,27 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResponse> {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${N8N_JWT_TOKEN}`,
       },
-      body: JSON.stringify({
-        name: payload.name,
-        email: payload.email,
-        source: payload.resource ? 'resource' : (payload.source ?? 'website'),
-        ...(payload.resource ? { resource: payload.resource } : {}),
-      }),
+      body: JSON.stringify((() => {
+        const name = payload.name.trim();
+        const email = payload.email.trim().toLowerCase();
+        const resource = (payload.resource ?? '').trim();
+        const message = (payload.message ?? '').trim();
+        const fallbackSource = (payload.source ?? 'website').trim().toLowerCase();
+
+        const source = resource
+          ? 'resource'
+          : message
+            ? 'contact'
+            : fallbackSource;
+
+        return {
+          name,
+          email,
+          source,
+          ...(resource ? { resource } : {}),
+          ...(message ? { message } : {}),
+        };
+      })()),
       signal: controller.signal,
     });
 

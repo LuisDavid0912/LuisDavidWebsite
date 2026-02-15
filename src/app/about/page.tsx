@@ -102,7 +102,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Gallery Section */}
-      <Section
+      {/* <Section
         title="Galería"
         subtitle="Un poco más sobre mí"
         background="alt"
@@ -127,7 +127,7 @@ export default function AboutPage() {
             />
             </Grid>
         </Grid>
-      </Section>
+      </Section> */}
 
       {/* Experience Section */}
       <Section

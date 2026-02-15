@@ -422,6 +422,42 @@ export const siteContent = {
     description: 'Estoy disponible para proyectos freelance, consultoría o colaboraciones. ¡Hablemos sobre cómo puedo ayudarte!',
     email: 'yosoy@luisdavidmag.com',
     ctaLabel: 'Enviar email',
+
+    hero: {
+      title: '¿Cómo puedo ayudarte?',
+      subtitle: 'Cuéntame sobre tu proyecto o idea. Respondo en menos de 24 horas con una propuesta clara y sin compromiso.',
+      ctaLabel: 'Ir al formulario',
+    },
+
+    qualification: {
+      title: 'Contacta conmigo si:',
+      items: [
+        'Quieres automatizar procesos con n8n y APIs',
+        'Necesitas integrar tu web con Supabase, CRM o herramientas externas',
+        'Quieres mejorar la captación de leads y seguimiento automático',
+        'Buscas construir pipelines de datos o reporting avanzado',
+        'Necesitas soluciones de IA aplicadas a tu negocio',
+      ],
+    },
+
+    form: {
+      nameLabel: 'Nombre',
+      namePlaceholder: 'Tu nombre',
+      emailLabel: 'Correo electrónico',
+      emailPlaceholder: 'tu@email.com',
+      messageLabel: 'Mensaje',
+      messagePlaceholder: 'Cuéntame brevemente sobre tu proyecto o necesidad...',
+      buttonLabel: 'Enviar mensaje',
+      successMessage: '¡Mensaje enviado! Te respondo en menos de 24 horas.',
+      errorMessage: 'Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo.',
+      disclaimer: 'Tu información es privada. Nunca compartiré tus datos con terceros.',
+      validation: {
+        nameRequired: 'El nombre es obligatorio.',
+        nameMin: 'El nombre debe tener al menos 2 caracteres.',
+        emailRequired: 'El correo electrónico es obligatorio.',
+        emailInvalid: 'Por favor, introduce un correo electrónico válido.',
+      },
+    },
   },
 
   social: {

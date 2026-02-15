@@ -26,8 +26,8 @@ interface FieldErrors {
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface LeadCaptureFormProps {
-  /** 'default' = vertical stacked; 'compact' = inline row on md+ */
-  variant?: 'default' | 'compact';
+  /** 'default' = vertical stacked; 'compact' = inline row on md+; 'contact' = contact page with message field */
+  variant?: 'default' | 'compact' | 'contact';
   /** Resource slug — when set, form acts as resource gate */
   resourceSlug?: string;
   /** Download URL shown on success when resourceSlug is set */
@@ -48,31 +48,46 @@ export default function LeadCaptureForm({
   successMessage,
   onSuccess,
 }: LeadCaptureFormProps) {
-  const { newsletter, resources } = siteContent;
+  const { newsletter, resources, contact } = siteContent;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
   const [resultMessage, setResultMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   const isResource = Boolean(resourceSlug);
-  const resolvedButtonLabel = buttonLabel ?? (isResource ? resources.form.buttonLabel : newsletter.buttonLabel);
-  const resolvedSuccessMsg = successMessage ?? (isResource ? resources.form.successMessage : newsletter.successMessage);
+  const isContact = variant === 'contact';
+  const isCompact = variant === 'compact';
+
+  // Resolve labels based on variant
+  const resolvedButtonLabel = buttonLabel
+    ?? (isContact ? contact.form.buttonLabel : isResource ? resources.form.buttonLabel : newsletter.buttonLabel);
+  const resolvedSuccessMsg = successMessage
+    ?? (isContact ? contact.form.successMessage : isResource ? resources.form.successMessage : newsletter.successMessage);
+
+  const nameLabel = isContact ? contact.form.nameLabel : newsletter.nameLabel;
+  const namePlaceholder = isContact ? contact.form.namePlaceholder : newsletter.namePlaceholder;
+  const emailLabel = isContact ? contact.form.emailLabel : newsletter.emailLabel;
+  const emailPlaceholder = isContact ? contact.form.emailPlaceholder : newsletter.emailPlaceholder;
+  const disclaimer = isContact ? contact.form.disclaimer : newsletter.disclaimer;
+
+  const validationMessages = isContact ? contact.form.validation : newsletter.validation;
 
   const validate = (): boolean => {
     const errors: FieldErrors = {};
 
     if (!name.trim()) {
-      errors.name = newsletter.validation.nameRequired;
+      errors.name = validationMessages.nameRequired;
     } else if (name.trim().length < 2) {
-      errors.name = newsletter.validation.nameMin;
+      errors.name = validationMessages.nameMin;
     }
 
     if (!email.trim()) {
-      errors.email = newsletter.validation.emailRequired;
+      errors.email = validationMessages.emailRequired;
     } else if (!EMAIL_REGEX.test(email.trim())) {
-      errors.email = newsletter.validation.emailInvalid;
+      errors.email = validationMessages.emailInvalid;
     }
 
     setFieldErrors(errors);
@@ -91,6 +106,7 @@ export default function LeadCaptureForm({
       name: name.trim(),
       email: email.trim(),
       ...(resourceSlug ? { resource: resourceSlug } : {}),
+      ...(isContact && message.trim() ? { message: message.trim() } : {}),
     });
 
     if (result.ok) {
@@ -98,6 +114,7 @@ export default function LeadCaptureForm({
       setResultMessage(resolvedSuccessMsg);
       setName('');
       setEmail('');
+      setMessage('');
       setFieldErrors({});
       onSuccess?.();
     } else {
@@ -105,8 +122,6 @@ export default function LeadCaptureForm({
       setResultMessage(result.message);
     }
   };
-
-  const isCompact = variant === 'compact';
 
   // If success, show the success message + optional download button
   if (status === 'success') {
@@ -146,12 +161,18 @@ export default function LeadCaptureForm({
     );
   }
 
+  const ariaLabel = isContact
+    ? 'Formulario de contacto'
+    : isResource
+      ? 'Formulario para descargar recurso'
+      : 'Formulario de suscripción a newsletter';
+
   return (
     <Box
       component="form"
       onSubmit={handleSubmit}
       noValidate
-      aria-label={isResource ? 'Formulario para descargar recurso' : 'Formulario de suscripción a newsletter'}
+      aria-label={ariaLabel}
       sx={{
         maxWidth: isCompact ? undefined : 600,
         mx: isCompact ? undefined : 'auto',
@@ -172,6 +193,24 @@ export default function LeadCaptureForm({
         </Alert>
       </Collapse>
 
+      {/* Honeypot field (hidden from users, catches bots) */}
+      <Box
+        sx={{
+          position: 'absolute',
+          left: '-9999px',
+          opacity: 0,
+          height: 0,
+          overflow: 'hidden',
+        }}
+        aria-hidden="true"
+      >
+        <TextField
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </Box>
+
       {/* Form fields */}
       <Stack
         direction={isCompact ? { xs: 'column', md: 'row' } : 'column'}
@@ -179,10 +218,10 @@ export default function LeadCaptureForm({
         alignItems={isCompact ? { md: 'flex-start' } : undefined}
       >
         <TextField
-          id={`lead-name${resourceSlug ? `-${resourceSlug}` : ''}`}
+          id={`lead-name${resourceSlug ? `-${resourceSlug}` : ''}${isContact ? '-contact' : ''}`}
           name="name"
-          label={newsletter.nameLabel}
-          placeholder={newsletter.namePlaceholder}
+          label={nameLabel}
+          placeholder={namePlaceholder}
           value={name}
           onChange={(e) => {
             setName(e.target.value);
@@ -203,11 +242,11 @@ export default function LeadCaptureForm({
         />
 
         <TextField
-          id={`lead-email${resourceSlug ? `-${resourceSlug}` : ''}`}
+          id={`lead-email${resourceSlug ? `-${resourceSlug}` : ''}${isContact ? '-contact' : ''}`}
           name="email"
           type="email"
-          label={newsletter.emailLabel}
-          placeholder={newsletter.emailPlaceholder}
+          label={emailLabel}
+          placeholder={emailPlaceholder}
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -226,6 +265,27 @@ export default function LeadCaptureForm({
           }}
           sx={{ flex: isCompact ? 1 : undefined }}
         />
+
+        {/* Message field for contact variant */}
+        {isContact && (
+          <TextField
+            id="lead-message-contact"
+            name="message"
+            label={contact.form.messageLabel}
+            placeholder={contact.form.messagePlaceholder}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            disabled={status === 'loading'}
+            fullWidth
+            multiline
+            minRows={4}
+            maxRows={8}
+            size="medium"
+            inputProps={{
+              autoComplete: 'off',
+            }}
+          />
+        )}
 
         <PrimaryButton
           type="submit"
@@ -258,7 +318,7 @@ export default function LeadCaptureForm({
           fontSize: { xs: '0.75rem', md: '0.8125rem' },
         }}
       >
-        {newsletter.disclaimer}
+        {disclaimer}
       </Typography>
     </Box>
   );
