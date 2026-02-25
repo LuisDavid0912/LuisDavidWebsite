@@ -44,13 +44,12 @@ export default function ResourcesPage() {
           <Grid container spacing={3}>
             {resources.items.map((resource) => (
               <Grid item xs={12} sm={6} md={4} key={resource.slug}>
-                <ResourceCard
+              <ResourceCard
                   slug={resource.slug}
                   title={resource.title}
                   description={resource.description}
                   type={resource.type}
                   tags={resource.tags}
-                  downloadUrl={resource.downloadUrl}
                 />
               </Grid>
             ))}
