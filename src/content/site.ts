@@ -489,6 +489,159 @@ export const siteContent = {
     },
   },
 
+  // =============================================
+  // DIAGNOSTIC PAGE (Hidden — no navbar link)
+  // =============================================
+
+  diagnostic: {
+    hero: {
+      subtitle: 'Diagnóstico Gratuito',
+      title: 'Descubre los Puntos Débiles de tu Negocio Digital',
+      description: 'Responde 6 preguntas rápidas y obtén un diagnóstico personalizado sobre el estado de tu transformación digital. Identifica oportunidades de mejora en datos, automatización e inteligencia artificial.',
+      ctaLabel: 'Comenzar Diagnóstico',
+    },
+
+    progress: {
+      label: 'Pregunta',
+      of: 'de',
+    },
+
+    questions: [
+      {
+        id: 'data-management',
+        question: '¿Cómo gestionas los datos de tu negocio?',
+        options: [
+          { label: 'Hojas de cálculo (Excel, Google Sheets)', value: 1 },
+          { label: 'Base de datos básica (Access, MySQL simple)', value: 2 },
+          { label: 'Base de datos estructurada con consultas regulares', value: 3 },
+          { label: 'Data warehouse o data lake en la nube', value: 4 },
+        ],
+      },
+      {
+        id: 'manual-processes',
+        question: '¿Cuántos procesos manuales repetitivos tiene tu equipo?',
+        options: [
+          { label: 'Muchos — la mayoría son manuales', value: 1 },
+          { label: 'Varios — algunos están semi-automatizados', value: 2 },
+          { label: 'Pocos — casi todo está automatizado', value: 3 },
+          { label: 'Casi ninguno — tenemos flujos automatizados', value: 4 },
+        ],
+      },
+      {
+        id: 'ai-usage',
+        question: '¿Usas inteligencia artificial en tus procesos de negocio?',
+        options: [
+          { label: 'No, y no sé cómo aplicarla', value: 1 },
+          { label: 'He explorado herramientas de IA genéricas (ChatGPT, etc.)', value: 2 },
+          { label: 'Uso IA en algunos procesos puntuales', value: 3 },
+          { label: 'Tengo IA integrada en producción (chatbots, predicciones, etc.)', value: 4 },
+        ],
+      },
+      {
+        id: 'integrations',
+        question: '¿Cómo conectas tus herramientas y plataformas?',
+        options: [
+          { label: 'Todo manual — copio datos de una herramienta a otra', value: 1 },
+          { label: 'Uso Zapier o Make para algunas conexiones', value: 2 },
+          { label: 'Tengo integraciones con APIs y webhooks', value: 3 },
+          { label: 'Stack completamente integrado con orquestación centralizada', value: 4 },
+        ],
+      },
+      {
+        id: 'metrics',
+        question: '¿Tienes métricas claras de tu negocio?',
+        options: [
+          { label: 'No tengo métricas definidas', value: 1 },
+          { label: 'Reviso reportes manualmente de vez en cuando', value: 2 },
+          { label: 'Tengo dashboards pero no siempre están actualizados', value: 3 },
+          { label: 'Dashboards en tiempo real con KPIs automatizados', value: 4 },
+        ],
+      },
+      {
+        id: 'time-waste',
+        question: '¿Cuánto tiempo dedicas a tareas que podrían automatizarse?',
+        options: [
+          { label: 'Más de 20 horas por semana', value: 1 },
+          { label: 'Entre 10 y 20 horas por semana', value: 2 },
+          { label: 'Entre 5 y 10 horas por semana', value: 3 },
+          { label: 'Menos de 5 horas por semana', value: 4 },
+        ],
+      },
+    ],
+
+    results: [
+      {
+        minScore: 6,
+        maxScore: 10,
+        level: 'critical',
+        emoji: '🔴',
+        title: 'Estado Crítico — Urgencia de Transformación',
+        description: 'Tu negocio depende casi por completo de procesos manuales y no aprovecha el potencial de los datos ni la automatización. Hay una gran oportunidad de mejora que puede impactar directamente en tu productividad y rentabilidad.',
+        recommendation: 'Te recomiendo comenzar con una consultoría estratégica para identificar los quick wins que pueden ahorrarte horas de trabajo inmediatamente.',
+      },
+      {
+        minScore: 11,
+        maxScore: 15,
+        level: 'developing',
+        emoji: '🟡',
+        title: 'En Desarrollo — Fundamentos por Construir',
+        description: 'Has dado algunos pasos, pero tu infraestructura de datos y automatización todavía tiene brechas importantes. Con las bases correctas, puedes acelerar significativamente el crecimiento.',
+        recommendation: 'Necesitas establecer una base sólida de datos y comenzar a automatizar los procesos más repetitivos. Un plan de acción enfocado puede hacer la diferencia.',
+      },
+      {
+        minScore: 16,
+        maxScore: 20,
+        level: 'intermediate',
+        emoji: '🟢',
+        title: 'Intermedio — Buena Base, Mucho Potencial',
+        description: 'Tienes una base tecnológica respetable. Ahora es momento de optimizar, integrar IA y llevar tu stack al siguiente nivel para diferenciarte de la competencia.',
+        recommendation: 'Enfócate en integrar inteligencia artificial y crear pipelines de datos más sofisticados para tomar decisiones basadas en datos en tiempo real.',
+      },
+      {
+        minScore: 21,
+        maxScore: 24,
+        level: 'advanced',
+        emoji: '🚀',
+        title: 'Avanzado — Listo para Escalar',
+        description: '¡Excelente! Tu negocio está bien posicionado tecnológicamente. Las oportunidades ahora están en la optimización avanzada, IA predictiva y escalabilidad.',
+        recommendation: 'Podemos explorar IA avanzada, modelos predictivos y arquitecturas de datos de próxima generación para mantener tu ventaja competitiva.',
+      },
+    ],
+
+    form: {
+      title: 'Recibe tu Diagnóstico Completo',
+      description: 'Déjame tu nombre y correo para enviarte un análisis detallado con recomendaciones personalizadas.',
+      nameLabel: 'Nombre',
+      namePlaceholder: 'Tu nombre',
+      emailLabel: 'Correo electrónico',
+      emailPlaceholder: 'tu@email.com',
+      buttonLabel: 'Recibir mi diagnóstico',
+      successMessage: '¡Listo! Recibirás tu diagnóstico personalizado en tu correo.',
+      errorMessage: 'Hubo un problema. Por favor, inténtalo de nuevo.',
+      disclaimer: 'Tu información es privada. Nunca compartiré tus datos con terceros.',
+      validation: {
+        nameRequired: 'El nombre es obligatorio.',
+        nameMin: 'El nombre debe tener al menos 2 caracteres.',
+        emailRequired: 'El correo electrónico es obligatorio.',
+        emailInvalid: 'Por favor, introduce un correo electrónico válido.',
+      },
+    },
+
+    cta: {
+      title: '¿Quieres mejorar tu puntuación?',
+      description: 'Hablemos sobre cómo puedo ayudarte a transformar tu negocio con datos, automatización e inteligencia artificial.',
+      buttonLabel: 'Agendar una Consulta',
+      buttonHref: '/contact',
+    },
+
+    navigation: {
+      previous: 'Anterior',
+      next: 'Siguiente',
+      restart: 'Repetir Diagnóstico',
+      seeResults: 'Ver Resultados',
+    },
+  },
+
   social: {
     linkedin: 'https://www.linkedin.com/in/luisdavidmag/',
     github: 'https://github.com/LuisDavid0912',

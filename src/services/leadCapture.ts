@@ -9,7 +9,7 @@
 const N8N_WEBHOOK_URL = 'https://n8n.luisdavidmag.com/webhook/lead-capture';
 // JWT token signed with HS256 (sub: website, iss: luisdavidmag.com)
 const N8N_JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ3ZWJzaXRlIiwiaXNzIjoibHVpc2RhdmlkbWFnLmNvbSIsImlhdCI6MTc3MDgzOTIzOH0.ckl3svlOCOoh-rSEfXM5m32CSSJc2KrJwf3cSOc0v_E';
-const REQUEST_TIMEOUT_MS = 8_000;
+const REQUEST_TIMEOUT_MS = 15_000;
 
 interface LeadPayload {
   name: string;
@@ -18,6 +18,8 @@ interface LeadPayload {
   resource?: string;
   /** Optional: contact form message */
   message?: string;
+  /** Optional: diagnostic survey responses (JSON string) */
+  diagnostic?: string;
   /** Override source: defaults to 'website' */
   source?: string;
 }
@@ -47,13 +49,16 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResponse> {
         const email = payload.email.trim().toLowerCase();
         const resource = (payload.resource ?? '').trim();
         const message = (payload.message ?? '').trim();
+        const diagnostic = (payload.diagnostic ?? '').trim();
         const fallbackSource = (payload.source ?? 'website').trim().toLowerCase();
 
         const source = resource
           ? 'resource'
-          : message
-            ? 'contact'
-            : fallbackSource;
+          : diagnostic
+            ? 'diagnostic'
+            : message
+              ? 'contact'
+              : fallbackSource;
 
         return {
           name,
@@ -61,6 +66,7 @@ export async function submitLead(payload: LeadPayload): Promise<LeadResponse> {
           source,
           ...(resource ? { resource } : {}),
           ...(message ? { message } : {}),
+          ...(diagnostic ? { diagnostic } : {}),
         };
       })()),
       signal: controller.signal,

@@ -9,3 +9,4 @@ export { default as LegalLayout } from './LegalLayout';
 export { default as ResponsiveImage } from './ResponsiveImage';
 export { default as LeadCaptureForm } from './forms/LeadCaptureForm';
 export { default as ResourceCard } from './ResourceCard';
+export { default as DiagnosticSurvey } from './DiagnosticSurvey';
