@@ -16,7 +16,9 @@ export default function Hero() {
     <Box
       id="inicio"
       sx={{
-        minHeight: '100vh',
+        minHeight: { xs: 'auto', md: '100vh' },
+        pt: { xs: 2, md: 0 },
+        pb: { xs: 2, md: 0 },
         display: 'flex',
         alignItems: 'center',
         backgroundColor: isLight ? brandColors.white : brandColors.black,
@@ -27,7 +29,7 @@ export default function Hero() {
           <Stack
             direction={{ xs: 'column-reverse', md: 'row' }}
             alignItems="center"
-            spacing={{ xs: 6, md: 8 }}
+            spacing={{ xs: 2, md: 6 }}
           >
             <Box sx={{ flex: 1, maxWidth: { md: 600 } }}>
               <Typography
@@ -40,14 +42,14 @@ export default function Hero() {
                   mb: 2,
                 }}
               >
-                Soy Ingeniero de Datos, y
+                {siteContent.hero.preHeadline}
               </Typography>
               <Typography
                 variant="h1"
                 component="h1"
                 sx={{
                   color: 'text.primary',
-                  mb: 3,
+                  mb: 2,
                   fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem', lg: '3.8rem' },
                   lineHeight: 1.1,
                 }}
@@ -58,7 +60,7 @@ export default function Hero() {
                 variant="body1"
                 sx={{
                   color: 'text.secondary',
-                  mb: 5,
+                  mb: { xs: 2, md: 5 },
                   maxWidth: 560,
                   fontSize: { xs: '1rem', md: '1.25rem' },
                   lineHeight: 1.6,
@@ -91,7 +93,7 @@ export default function Hero() {
               sx={{ 
                 flex: 1, 
                 width: '100%',
-                maxWidth: { xs: 400, md: 500 },
+                maxWidth: { xs: 260, sm: 400, md: 500 },
                 display: 'flex',
                 justifyContent: 'center'
               }}

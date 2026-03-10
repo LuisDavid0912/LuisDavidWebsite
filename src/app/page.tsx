@@ -9,15 +9,15 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Intro Section */}
+      {/* Contexto Section */}
       <Section
-        id="intro"
-        title={siteContent.homeIntro.title}
-        subtitle={siteContent.homeIntro.subtitle}
+        id="contexto"
+        title={siteContent.homeContext.title}
         background="paper"
+        centered
       >
-        <Stack spacing={3} sx={{ maxWidth: 800 }}>
-          {siteContent.homeIntro.paragraphs.map((p, i) => (
+        <Stack spacing={3} sx={{ maxWidth: 800, mx: 'auto', mb: 6 }}>
+          {siteContent.homeContext.paragraphs.map((p, i) => (
             <Typography
               key={i}
               variant="body1"
@@ -32,91 +32,100 @@ export default function Home() {
             </Typography>
           ))}
         </Stack>
-      </Section>
-
-      {/* Services Section */}
-      <Section
-        id="servicios"
-        title={siteContent.homeServices.title}
-        subtitle={siteContent.homeServices.subtitle}
-        background="default"
-        centered
-      >
         <Grid container spacing={4}>
-          {siteContent.homeServices.items.map((service, i) => (
-            <Grid item xs={12} sm={6} md={4} key={i}>
+          {siteContent.homeContext.blocks.map((block, i) => (
+            <Grid item xs={12} md={4} key={i}>
               <Card
                 sx={{
                   height: '100%',
-                  backgroundColor: 'background.paper',
+                  backgroundColor: 'background.default',
                   border: '1px solid',
                   borderColor: 'divider',
+                  p: { xs: 3, md: 4 },
                   transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                   '&:hover': {
                     transform: 'translateY(-4px)',
-                    boxShadow: 4,
+                    boxShadow: 2,
                   },
                 }}
                 elevation={0}
               >
-                <CardContent sx={{ p: { xs: 3, md: 4 } }}>
-                  <Typography
-                    variant="h5"
-                    component="h3"
-                    sx={{ color: 'primary.main', mb: 2, fontWeight: 600 }}
-                  >
-                    {service.title}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: 'text.secondary',
-                      lineHeight: 1.7,
-                      textAlign: { xs: 'left', md: 'justify' },
-                    }}
-                  >
-                    {service.description}
-                  </Typography>
-                </CardContent>
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  sx={{ color: 'primary.main', mb: 2, fontWeight: 600 }}
+                >
+                  {block.title}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    lineHeight: 1.7,
+                    textAlign: { xs: 'left', md: 'justify' },
+                  }}
+                >
+                  {block.description}
+                </Typography>
               </Card>
             </Grid>
           ))}
         </Grid>
       </Section>
 
-      {/* Stats Section */}
+      {/* Qué hago exactamente Section */}
       <Section
-        id="impacto"
-        title={siteContent.homeStats.title}
-        subtitle={siteContent.homeStats.subtitle}
-        background="primary"
+        id="que-hago"
+        title={siteContent.homeWhatIDo.title}
+        background="default"
         centered
       >
+        <Stack spacing={3} sx={{ maxWidth: 800, mx: 'auto', mb: 6 }}>
+          {siteContent.homeWhatIDo.paragraphs.map((p, i) => (
+            <Typography
+              key={i}
+              variant="body1"
+              sx={{
+                color: 'text.secondary',
+                fontSize: { xs: '1rem', md: '1.125rem' },
+                lineHeight: 1.8,
+                textAlign: { xs: 'left', md: 'justify' },
+              }}
+            >
+              {p}
+            </Typography>
+          ))}
+        </Stack>
         <Grid container spacing={4} justifyContent="center">
-          {siteContent.homeStats.items.map((stat, i) => (
-            <Grid item xs={6} md={3} key={i}>
-              <Box sx={{ textAlign: 'center' }}>
+          {siteContent.homeWhatIDo.areas.map((area, i) => (
+            <Grid item xs={12} md={4} key={i}>
+              <Box
+                sx={{
+                  height: '100%',
+                  p: { xs: 3, md: 4 },
+                  borderRadius: 2,
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  backgroundColor: 'background.paper',
+                  textAlign: 'left',
+                }}
+              >
                 <Typography
-                  variant="h2"
-                  component="p"
-                  sx={{
-                    color: 'secondary.main',
-                    fontWeight: 700,
-                    fontSize: { xs: '2.5rem', md: '3.5rem' },
-                    mb: 1,
-                  }}
+                  variant="h5"
+                  component="h3"
+                  sx={{ color: 'secondary.main', mb: 2, fontWeight: 600 }}
                 >
-                  {stat.value}
+                  {area.title}
                 </Typography>
                 <Typography
-                  variant="body1"
+                  variant="body2"
                   sx={{
-                    color: 'inherit',
-                    opacity: 0.9,
-                    fontSize: { xs: '0.875rem', md: '1rem' },
+                    color: 'text.secondary',
+                    lineHeight: 1.7,
+                    textAlign: { xs: 'left', md: 'justify' },
                   }}
                 >
-                  {stat.label}
+                  {area.description}
                 </Typography>
               </Box>
             </Grid>
@@ -124,51 +133,65 @@ export default function Home() {
         </Grid>
       </Section>
 
-      {/* Featured Projects Section */}
+      {/* Methodology Section */}
       <Section
-        id="proyectos-destacados"
-        title={siteContent.homeProjects.title}
-        subtitle={siteContent.homeProjects.subtitle}
+        id="metodologia"
+        title={siteContent.homeMethodology.title}
         background="paper"
         centered
       >
-        <Typography
-          variant="body1"
-          sx={{
-            color: 'text.secondary',
-            mb: 6,
-            maxWidth: 600,
-            mx: 'auto',
-            textAlign: { xs: 'center', md: 'justify' },
-          }}
-        >
-          {siteContent.homeProjects.description}
-        </Typography>
-        <Grid container spacing={4}>
-          {siteContent.projects.items.slice(0, 3).map((project, i) => (
-            <Grid item xs={12} md={4} key={i}>
-              <ProjectCard {...project} />
+        <Grid container spacing={4} sx={{ mb: 6 }}>
+          {siteContent.homeMethodology.steps.map((step, i) => (
+            <Grid item xs={12} sm={6} md={3} key={i}>
+              <Box
+                sx={{
+                  textAlign: 'center',
+                  p: 2,
+                }}
+              >
+                <Typography
+                  variant="overline"
+                  sx={{ color: 'primary.main', fontWeight: 600, letterSpacing: 2 }}
+                >
+                  {step.step}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  sx={{ mb: 2, mt: 1, fontWeight: 600 }}
+                >
+                  {step.title}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: 'text.secondary',
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {step.description}
+                </Typography>
+              </Box>
             </Grid>
           ))}
         </Grid>
-        <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <PrimaryButton component={Link} href="/projects">
-            Ver Todos los Proyectos
+        <Box sx={{ textAlign: 'center' }}>
+          <PrimaryButton component={Link} href={siteContent.homeMethodology.cta.href}>
+            {siteContent.homeMethodology.cta.label}
           </PrimaryButton>
         </Box>
       </Section>
 
-      {/* Testimonials Section */}
+      {/* Examples Section */}
       <Section
-        id="testimonios"
-        title={siteContent.homeTestimonials.title}
-        subtitle={siteContent.homeTestimonials.subtitle}
+        id="ejemplos"
+        title={siteContent.homeExamples.title}
         background="default"
         centered
       >
         <Grid container spacing={4}>
-          {siteContent.homeTestimonials.items.map((testimonial, i) => (
-            <Grid item xs={12} md={4} key={i}>
+          {siteContent.homeExamples.examples.map((example, i) => (
+            <Grid item xs={12} sm={6} key={i}>
               <Card
                 sx={{
                   height: '100%',
@@ -180,33 +203,22 @@ export default function Home() {
                 elevation={0}
               >
                 <Typography
+                  variant="h5"
+                  component="h3"
+                  sx={{ color: 'text.primary', mb: 2, fontWeight: 600 }}
+                >
+                  {example.title}
+                </Typography>
+                <Typography
                   variant="body1"
                   sx={{
                     color: 'text.secondary',
-                    fontStyle: 'italic',
-                    mb: 3,
-                    lineHeight: 1.8,
+                    lineHeight: 1.7,
                     textAlign: { xs: 'left', md: 'justify' },
-                    '&::before': { content: '"""' },
-                    '&::after': { content: '"""' },
                   }}
                 >
-                  {testimonial.quote}
+                  {example.description}
                 </Typography>
-                <Box>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ color: 'text.primary', fontWeight: 600 }}
-                  >
-                    {testimonial.author}
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: 'primary.main' }}
-                  >
-                    {testimonial.role}
-                  </Typography>
-                </Box>
               </Card>
             </Grid>
           ))}

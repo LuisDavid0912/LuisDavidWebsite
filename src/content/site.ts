@@ -12,20 +12,22 @@ export const siteContent = {
       { label: 'Inicio', href: '/' },
       { label: 'Sobre mí', href: '/about' },
       { label: 'Proyectos', href: '/projects' },
+      { label: 'Aprende IA', href: '/talento' },
       { label: 'Recursos', href: '/resources' },
       { label: 'Contacto', href: '/contact' },
     ],
   },
   
   hero: {
+    preHeadline: 'Soy Ingeniero de Datos, y',
     headline: 'Ayudo a implementar Inteligencia Artificial en tu negocio.',
-    subheadline: 'Yo construyó la infraestructura tecnologica que permite a los negocios atraer clientes, automatizar sus procesos de ventas y tomar decisiones basadas en datos.',
+    subheadline: 'Construyo la infraestructura tecnológica que permite a los negocios atraer clientes, automatizar sus procesos de ventas y tomar decisiones basadas en datos.',
     ctaPrimary: {
       label: 'Quiero implementar IA en mi negocio',
       href: '/diagnostico',
     },
     ctaSecondary: {
-      label: 'Quiero Aprender IA',
+      label: 'Quiero aprender IA',
       href: 'https://skool.com/@luis-david-7838',
     },
   },
@@ -34,88 +36,100 @@ export const siteContent = {
   // HOME PAGE SECTIONS
   // =============================================
   
-  homeIntro: {
-    subtitle: 'Bienvenido',
-    title: 'Construyendo el Futuro con Datos e Inteligencia Artificial',
+  homeContext: {
+    title: 'Los negocios del futuro se construyen con sistemas, no solo con esfuerzo.',
     paragraphs: [
-      'En un mundo donde los datos son el nuevo petróleo, mi misión es ayudar a empresas y emprendedores a extraer el máximo valor de su información. Desde pipelines de datos hasta automatizaciones inteligentes, cada solución está diseñada para escalar.',
-      'Con más de años de experiencia en el ecosistema tecnológico, he tenido el privilegio de trabajar con startups innovadoras y empresas establecidas, siempre con un objetivo común: transformar la complejidad en simplicidad.',
-      'Mi enfoque combina la rigurosidad técnica con una visión estratégica del negocio. No se trata solo de escribir código, sino de entender el problema de fondo y diseñar soluciones que generen impacto real.',
+      'La inteligencia artificial y los datos están cambiando la forma en que se construyen los negocios.',
+      'Hoy las empresas más eficientes no trabajan más horas: utilizan tecnología para automatizar procesos, entender a sus clientes y tomar mejores decisiones.',
+      'Sin embargo, muchos negocios todavía operan con procesos manuales, herramientas desconectadas y sin aprovechar la información que generan.',
+      'Implementar Inteligencia Artificial no significa reemplazar personas, sino construir sistemas que permitan trabajar de forma más inteligente.',
     ],
-  },
-
-  homeServices: {
-    subtitle: 'Servicios',
-    title: '¿Cómo Puedo Ayudarte?',
-    items: [
+    blocks: [
       {
-        title: 'Data Engineering',
-        description: 'Diseño y construcción de arquitecturas de datos modernas. Desde la ingesta hasta la transformación, creo pipelines robustos que escalan con tu negocio. ETL/ELT, data lakes, y orquestación con herramientas como Airflow y dbt.',
-        icon: 'data',
+        title: 'Automatización de procesos',
+        description: 'La IA permite automatizar tareas repetitivas como seguimiento de clientes, generación de contenido o reportes.',
       },
       {
-        title: 'Automatización Inteligente',
-        description: 'Implementación de flujos de trabajo automatizados con n8n y herramientas low-code. Conecto aplicaciones, elimino tareas repetitivas y optimizo procesos operativos para que tu equipo se enfoque en lo que importa.',
-        icon: 'automation',
+        title: 'Captación y conversión de clientes',
+        description: 'Los negocios modernos utilizan sistemas que atraen prospectos, capturan sus datos y automatizan el seguimiento comercial.',
       },
       {
-        title: 'Soluciones de IA',
-        description: 'Desarrollo de aplicaciones con inteligencia artificial generativa. Chatbots inteligentes, procesamiento de lenguaje natural, y modelos predictivos que transforman la forma en que interactúas con tus clientes.',
-        icon: 'ai',
-      },
-      {
-        title: 'Consultoría Técnica',
-        description: 'Asesoría estratégica para la adopción de tecnologías de datos. Te ayudo a definir la arquitectura correcta, seleccionar las herramientas adecuadas y formar a tu equipo para el éxito a largo plazo.',
-        icon: 'consulting',
-      },
-      {
-        title: 'Desarrollo Full-Stack',
-        description: 'Creación de aplicaciones web modernas con React, Next.js y Node.js. Desde MVPs hasta productos completos, desarrollo soluciones que combinan excelente UX con backends escalables.',
-        icon: 'fullstack',
-      },
-      {
-        title: 'Integración de Sistemas',
-        description: 'Conexión de plataformas y servicios mediante APIs y webhooks. Rompo los silos de información para crear flujos de datos unificados que potencian la toma de decisiones.',
-        icon: 'integration',
+        title: 'Decisiones basadas en datos',
+        description: 'Cuando los datos del negocio están organizados, es posible entender qué funciona, qué no y dónde crecer.',
       },
     ],
   },
 
-  homeStats: {
-    subtitle: 'Impacto',
-    title: 'Números que Hablan',
-    items: [
-      { value: '50+', label: 'Proyectos Completados' },
-      { value: '1M+', label: 'Registros Procesados Diariamente' },
-      { value: '100+', label: 'Automatizaciones Creadas' },
-      { value: '30+', label: 'Clientes Satisfechos' },
+  homeWhatIDo: {
+    title: 'Cómo ayudo a aplicar inteligencia artificial en los negocios.',
+    paragraphs: [
+      'Mi trabajo consiste en traducir tecnología compleja en sistemas prácticos que ayudan a los negocios a crecer.',
+      'Lo hago a través de tres áreas principales.',
+    ],
+    areas: [
+      {
+        title: 'Formación en inteligencia artificial',
+        description: 'Creo contenido educativo y programas donde enseño a usar herramientas de inteligencia artificial y automatización.',
+      },
+      {
+        title: 'Arquitectura de negocios digitales',
+        description: 'Ayudo a emprendedores a construir la infraestructura tecnológica que necesitan para crear su negocio digital.',
+      },
+      {
+        title: 'Implementación en empresas',
+        description: 'Diseño e implemento sistemas de inteligencia artificial, automatización y análisis de datos dentro de negocios que quieren escalar.',
+      },
     ],
   },
 
-  homeProjects: {
-    subtitle: 'Portfolio',
-    title: 'Proyectos Destacados',
-    description: 'Una selección de trabajos que demuestran mi experiencia en diferentes áreas tecnológicas. Cada proyecto representa un desafío único y una solución a medida.',
+  homeMethodology: {
+    title: 'Un proceso simple para implementar tecnología.',
+    steps: [
+      {
+        step: 'Paso 1',
+        title: 'Diagnóstico',
+        description: 'Analizamos cómo funciona actualmente el negocio y detectamos oportunidades de automatización.',
+      },
+      {
+        step: 'Paso 2',
+        title: 'Diseño del sistema',
+        description: 'Diseñamos la arquitectura tecnológica adecuada para el negocio.',
+      },
+      {
+        step: 'Paso 3',
+        title: 'Implementación',
+        description: 'Construimos e integramos las automatizaciones y sistemas necesarios.',
+      },
+      {
+        step: 'Paso 4',
+        title: 'Optimización',
+        description: 'Medimos resultados y ajustamos el sistema para mejorar su rendimiento.',
+      },
+    ],
+    cta: {
+      label: 'Agendar diagnóstico',
+      href: '/diagnostico',
+    },
   },
 
-  homeTestimonials: {
-    subtitle: 'Testimonios',
-    title: 'Lo Que Dicen Mis Clientes',
-    items: [
+  homeExamples: {
+    title: 'Ejemplos de lo que se puede construir con inteligencia artificial.',
+    examples: [
       {
-        quote: 'Luis David transformó completamente nuestra infraestructura de datos. Lo que antes tardaba horas, ahora se ejecuta automáticamente en minutos. Su enfoque técnico y visión de negocio son excepcionales.',
-        author: 'María González',
-        role: 'CTO, TechStartup',
+        title: 'Automatización de captación de clientes',
+        description: 'Sistema que atrae prospectos, captura sus datos y organiza la base de clientes.',
       },
       {
-        quote: 'La automatización que implementó nos ha ahorrado más de 20 horas semanales en tareas manuales. Su conocimiento de n8n y su capacidad para entender nuestros procesos fueron clave.',
-        author: 'Carlos Rodríguez',
-        role: 'Director de Operaciones, E-commerce',
+        title: 'Automatización de marketing',
+        description: 'Generación de contenido y seguimiento automático de prospectos.',
       },
       {
-        quote: 'Trabajar con Luis David fue una experiencia excelente. Entendió rápidamente nuestras necesidades y entregó una solución de IA que superó nuestras expectativas.',
-        author: 'Ana Martínez',
-        role: 'Fundadora, Startup IA',
+        title: 'Dashboards de negocio',
+        description: 'Paneles de control que muestran ventas, clientes y métricas clave.',
+      },
+      {
+        title: 'Automatización de procesos internos',
+        description: 'Integración de herramientas para eliminar tareas manuales.',
       },
     ],
   },
@@ -370,6 +384,60 @@ export const siteContent = {
         link: '#',
       },
     ],
+  },
+
+  // =============================================
+  // TALENTO (PARA ESTUDIANTES) PAGE
+  // =============================================
+
+  talento: {
+    hero: {
+      subtitle: 'Para Estudiantes',
+      title: 'Acelera tu carrera en Datos e Inteligencia Artificial',
+      description: 'Programas de formación, mentoría y recursos diseñados exclusivamente para estudiantes y profesionales que buscan destacar en el ecosistema tecnológico actual.',
+      ctaPrimary: {
+        label: 'Ver programas',
+        href: '#programas',
+      },
+      ctaSecondary: {
+        label: 'Únete a la comunidad',
+        href: 'https://skool.com/@luis-david-7838',
+      },
+    },
+    benefits: {
+      title: '¿Por qué capacitarte conmigo?',
+      items: [
+        {
+          title: 'Aprendizaje Práctico',
+          description: 'No más teoría sin aplicación. Construirás proyectos reales que enriquecerán tu portafolio desde el primer día.',
+        },
+        {
+          title: 'Mentoría Directa',
+          description: 'Recibe feedback sobre tu código y decisiones para evitar los errores más comunes de la industria.',
+        },
+        {
+          title: 'Hardware de Oportunidades',
+          description: 'Conéctate con otros estudiantes y profesionales apasionados. Comparte dudas y colabora en grupo.',
+        },
+      ],
+    },
+    programs: {
+      title: 'Rutas de Aprendizaje',
+      items: [
+        {
+          title: 'Fundamentos de Inteligencia Artificial',
+          description: 'Comprende los conceptos clave y cómo implementar modelos en aplicaciones reales usando herramientas modernas.',
+          duration: 'Próximamente',
+          level: 'Principiantes',
+        },
+        {
+          title: 'Ingeniería de Datos Básica',
+          description: 'Aprende a diseñar tu primer pipeline de datos, automatizando extracciones, transformaciones y cargas (ETL).',
+          duration: 'Próximamente',
+          level: 'Intermedio',
+        },
+      ],
+    },
   },
 
   // =============================================
