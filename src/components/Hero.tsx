@@ -40,7 +40,7 @@ export default function Hero() {
                   mb: 2,
                 }}
               >
-                Hola, soy Luis David
+                Soy Ingeniero de Datos, y
               </Typography>
               <Typography
                 variant="h1"
@@ -48,7 +48,7 @@ export default function Hero() {
                 sx={{
                   color: 'text.primary',
                   mb: 3,
-                  fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem', lg: '4.5rem' },
+                  fontSize: { xs: '2.25rem', sm: '3rem', md: '3.75rem', lg: '3.8rem' },
                   lineHeight: 1.1,
                 }}
               >
@@ -79,6 +79,8 @@ export default function Hero() {
                 <SecondaryButton
                   component={Link}
                   href={siteContent.hero.ctaSecondary.href}
+                  target={siteContent.hero.ctaSecondary.href.startsWith('http') ? '_blank' : undefined}
+                  rel={siteContent.hero.ctaSecondary.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 >
                   {siteContent.hero.ctaSecondary.label}
                 </SecondaryButton>

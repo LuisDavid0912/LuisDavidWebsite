@@ -18,15 +18,15 @@ export const siteContent = {
   },
   
   hero: {
-    headline: 'Data Engineer & AI Automation Specialist',
-    subheadline: 'Transformo datos en insights y procesos manuales en flujos automatizados. Especializado en Data Engineering, n8n y soluciones de Inteligencia Artificial.',
+    headline: 'Ayudo a implementar Inteligencia Artificial en tu negocio.',
+    subheadline: 'Yo construyó la infraestructura tecnologica que permite a los negocios atraer clientes, automatizar sus procesos de ventas y tomar decisiones basadas en datos.',
     ctaPrimary: {
-      label: 'Hablemos',
-      href: '/contact',
+      label: 'Quiero implementar IA en mi negocio',
+      href: '/diagnostico',
     },
     ctaSecondary: {
-      label: 'Ver proyectos',
-      href: '/projects',
+      label: 'Quiero Aprender IA',
+      href: 'https://skool.com/@luis-david-7838',
     },
   },
 
