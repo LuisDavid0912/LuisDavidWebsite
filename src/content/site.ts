@@ -166,177 +166,85 @@ export const siteContent = {
   // ABOUT PAGE SECTIONS
   // =============================================
 
-  about: {
-    title: 'Sobre mí',
-    subtitle: '¿Quién soy y qué hago?',
-    description: 'Soy un apasionado por la tecnología con experiencia en el diseño e implementación de pipelines de datos, automatización de procesos empresariales y desarrollo de soluciones con inteligencia artificial.',
-    highlights: [
-      {
-        title: 'Data Engineering',
-        description: 'Diseño y construcción de pipelines de datos escalables, ETL/ELT, y arquitecturas de datos modernas.',
-      },
-      {
-        title: 'Automatización con n8n',
-        description: 'Creación de flujos de trabajo automatizados que conectan aplicaciones y optimizan procesos.',
-      },
-      {
-        title: 'Inteligencia Artificial',
-        description: 'Implementación de soluciones de IA generativa, chatbots y modelos de machine learning.',
-      },
-      {
-        title: 'Desarrollo Full-Stack',
-        description: 'Aplicaciones web modernas con React, Next.js, Node.js y bases de datos SQL/NoSQL.',
-      },
-    ],
-  },
-
   aboutHero: {
-    subtitle: 'Sobre Mí',
-    title: 'Transformando Datos en Oportunidades',
-    intro: 'Soy Luis David, un ingeniero de datos y especialista en automatización con una pasión por resolver problemas complejos a través de la tecnología. Mi misión es ayudar a empresas a navegar la era digital construyendo soluciones que escalen.',
-  },
-
-  aboutStory: {
-    subtitle: 'Mi Historia',
-    title: 'El Camino Hacia la Tecnología',
+    subtitle: 'Ingeniería de datos aplicada a negocios',
+    title: 'Sobre mí',
+    tags: 'Ingeniero de Datos • Inteligencia Artificial • Automatización • Negocios Digitales',
+    photo: '/images/photos/originales/KParadoSonriendo.jpg',
     paragraphs: [
-      'Mi viaje en el mundo de la tecnología comenzó hace más de una década, cuando descubrí el poder de la programación para resolver problemas del mundo real. Lo que empezó como curiosidad se transformó en una pasión que ha definido mi carrera profesional.',
-      'A lo largo de los años, he tenido el privilegio de trabajar en proyectos diversos: desde startups en etapa temprana hasta empresas consolidadas. Cada experiencia me ha enseñado algo nuevo y ha fortalecido mi convicción de que la tecnología, bien aplicada, puede transformar negocios.',
-      'Hoy, mi enfoque se centra en tres pilares: Data Engineering, Automatización Inteligente e Inteligencia Artificial. Creo firmemente que la intersección de estas disciplinas es donde ocurre la verdadera innovación.',
-      'Más allá del código, disfruto compartir conocimiento, mentorear a nuevos talentos y explorar las últimas tendencias tecnológicas. Cada día es una oportunidad para aprender algo nuevo y aplicarlo para crear valor.',
+      'Soy ingeniero de datos y trabajo en la intersección entre tecnología y negocios.',
+      'Mi trabajo consiste en ayudar a personas y empresas a entender y aplicar herramientas como inteligencia artificial, automatización y análisis de datos para construir sistemas que mejoren la forma en que funcionan los negocios.',
+      'Más allá de la tecnología, mi enfoque es simple: convertir herramientas complejas en soluciones prácticas que generen resultados reales.',
     ],
   },
 
-  aboutSkills: {
-    subtitle: 'Habilidades',
-    title: 'Stack Tecnológico',
-    categories: [
-      {
-        name: 'Data Engineering',
-        skills: ['Python', 'SQL', 'Apache Airflow', 'dbt', 'Spark', 'Kafka', 'PostgreSQL', 'MongoDB', 'Snowflake', 'AWS Redshift', 'Google BigQuery', 'ClickHouse'],
-      },
-      {
-        name: 'Automatización',
-        skills: ['n8n', 'Zapier', 'Make (Integromat)', 'APIs REST', 'Webhooks', 'Cron Jobs', 'Serverless Functions', 'Docker', 'Kubernetes'],
-      },
-      {
-        name: 'Inteligencia Artificial',
-        skills: ['OpenAI GPT', 'LangChain', 'Vector Databases', 'Embeddings', 'RAG Systems', 'Prompt Engineering', 'Fine-tuning', 'Hugging Face'],
-      },
-      {
-        name: 'Desarrollo Web',
-        skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'Express', 'GraphQL', 'Material UI', 'Tailwind CSS', 'Git', 'CI/CD'],
-      },
+  aboutWhy: {
+    title: 'Por qué hago esto',
+    paragraphs: [
+      'Estamos viviendo uno de los cambios tecnológicos más importantes de nuestra generación.',
+      'La inteligencia artificial, la automatización y los datos están transformando la forma en que se crean empresas, se toman decisiones y se construyen oportunidades.',
+      'Sin embargo, la mayoría de las personas y negocios todavía no sabe cómo utilizar esta tecnología de forma práctica.',
+      'Muchos escuchan hablar de inteligencia artificial, pero no saben cómo aplicarla en su negocio.',
+      'Otros quieren emprender en internet, pero no tienen la infraestructura tecnológica para hacerlo.',
+      'Por eso decidí enfocar mi trabajo en cerrar esa brecha.',
+      'Mi objetivo es acercar herramientas como la inteligencia artificial y la automatización a quienes quieren aprender, construir o mejorar sus negocios.',
     ],
   },
 
-  aboutExperience: {
-    subtitle: 'Experiencia',
-    title: 'Trayectoria Profesional',
-    items: [
+  aboutWhat: {
+    title: 'Qué hago',
+    subtitle: 'Mi trabajo se centra en tres áreas principales.',
+    areas: [
       {
-        period: '2022 - Presente',
-        title: 'Data Engineer & AI Specialist',
-        company: 'Freelance / Consultor Independiente',
-        description: 'Diseño e implementación de arquitecturas de datos end-to-end. Desarrollo de soluciones de IA generativa y automatizaciones con n8n para clientes de diversos sectores.',
+        title: 'Formación en inteligencia artificial',
+        description: 'Creo contenido y programas educativos donde enseño a utilizar herramientas de inteligencia artificial, automatización y tecnología moderna. El objetivo es ayudar a las personas a desarrollar habilidades que serán clave para el futuro del trabajo.',
       },
       {
-        period: '2020 - 2022',
-        title: 'Senior Data Engineer',
-        company: 'Tech Company',
-        description: 'Lideré la modernización de la infraestructura de datos, migrando de procesos batch a streaming en tiempo real. Implementé pipelines que procesan millones de eventos diarios.',
+        title: 'Arquitectura de negocios digitales',
+        description: 'Ayudo a emprendedores a diseñar la infraestructura tecnológica que necesitan para construir negocios digitales. Esto incluye sistemas de captación de clientes, automatización de procesos y organización de datos.',
       },
       {
-        period: '2018 - 2020',
-        title: 'Full-Stack Developer',
-        company: 'Startup',
-        description: 'Desarrollo de aplicaciones web con React y Node.js. Participé en el diseño de la arquitectura inicial y la implementación de features core del producto.',
-      },
-      {
-        period: '2016 - 2018',
-        title: 'Junior Developer',
-        company: 'Agencia Digital',
-        description: 'Primeros pasos profesionales desarrollando sitios web y aplicaciones para diversos clientes. Aprendizaje intensivo de tecnologías web y metodologías ágiles.',
+        title: 'Implementación de tecnología en empresas',
+        description: 'Trabajo con negocios que quieren mejorar sus procesos utilizando inteligencia artificial, automatización y análisis de datos. Diseño e implemento sistemas que permiten atraer clientes, automatizar operaciones y tomar decisiones basadas en información.',
       },
     ],
   },
 
-  aboutValues: {
-    subtitle: 'Filosofía',
-    title: 'Valores que Guían Mi Trabajo',
-    items: [
-      {
-        title: 'Excelencia Técnica',
-        description: 'Creo en escribir código limpio, documentado y mantenible. La calidad no es negociable; cada solución debe estar diseñada para perdurar.',
-      },
-      {
-        title: 'Aprendizaje Continuo',
-        description: 'La tecnología evoluciona constantemente. Me comprometo a mantenerme actualizado y a explorar nuevas herramientas que puedan aportar valor.',
-      },
-      {
-        title: 'Comunicación Clara',
-        description: 'La tecnología debe servir al negocio. Me esfuerzo por traducir conceptos técnicos en términos que cualquier stakeholder pueda entender.',
-      },
-      {
-        title: 'Enfoque en Resultados',
-        description: 'Más allá del código, lo que importa es el impacto. Cada proyecto debe generar valor medible para el cliente o la organización.',
-      },
+  aboutApproach: {
+    title: 'Mi enfoque',
+    paragraphs: [
+      'Creo que la tecnología solo tiene valor cuando se aplica a resolver problemas reales.',
+      'Por eso mi enfoque consiste en construir sistemas que ayuden a los negocios a:',
+    ],
+    bullets: [
+      'atraer clientes',
+      'automatizar procesos',
+      'organizar sus datos',
+      'tomar mejores decisiones',
+    ],
+    conclusion: 'No se trata solo de usar inteligencia artificial, sino de integrarla dentro del funcionamiento del negocio.',
+  },
+
+  aboutVision: {
+    title: 'Mi visión',
+    paragraphs: [
+      'Creo que los negocios del futuro serán construidos por personas que entiendan cómo utilizar tecnología para crear soluciones.',
+      'La inteligencia artificial, la automatización y los datos serán herramientas fundamentales para quienes quieran emprender, trabajar o liderar empresas.',
+      'Mi objetivo es contribuir a esa transición ayudando a formar personas que entiendan estas herramientas y a construir negocios que puedan utilizarlas para crecer.',
     ],
   },
 
-  aboutEducation: {
-    subtitle: 'Formación',
-    title: 'Educación y Certificaciones',
-    items: [
-      {
-        title: 'Ingeniería en Sistemas Computacionales',
-        institution: 'Universidad Tecnológica',
-        year: '2016',
-        type: 'degree',
-      },
-      {
-        title: 'AWS Certified Data Analytics',
-        institution: 'Amazon Web Services',
-        year: '2023',
-        type: 'certification',
-      },
-      {
-        title: 'Google Cloud Professional Data Engineer',
-        institution: 'Google Cloud',
-        year: '2022',
-        type: 'certification',
-      },
-      {
-        title: 'dbt Analytics Engineering',
-        institution: 'dbt Labs',
-        year: '2022',
-        type: 'certification',
-      },
-    ],
-  },
-
-  aboutInterests: {
-    subtitle: 'Más Allá del Código',
-    title: 'Intereses Personales',
-    description: 'Cuando no estoy frente a la computadora, disfruto explorar otras pasiones que complementan mi vida profesional y me mantienen equilibrado.',
-    items: [
-      {
-        title: 'Música',
-        description: 'La música es parte fundamental de mi vida. Ya sea escuchando mientras trabajo o explorando nuevos géneros, siempre hay una playlist de fondo.',
-      },
-      {
-        title: 'Lectura',
-        description: 'Desde libros técnicos hasta novelas de ciencia ficción, la lectura expande mi perspectiva y alimenta mi curiosidad natural.',
-      },
-      {
-        title: 'Comunidad Tech',
-        description: 'Participo activamente en meetups y comunidades de desarrolladores. Compartir conocimiento y aprender de otros es enriquecedor.',
-      },
-      {
-        title: 'Viajes',
-        description: 'Explorar nuevos lugares y culturas me inspira y ofrece perspectivas frescas que aplico en mi trabajo creativo.',
-      },
-    ],
+  aboutCta: {
+    title: 'Construyendo el futuro digital',
+    description: 'Si quieres aprender inteligencia artificial o explorar cómo implementar tecnología en tu negocio, puedes empezar aquí.',
+    button1: {
+      label: 'Aprender IA',
+      href: 'https://skool.com/@luis-david-7838',
+    },
+    button2: {
+      label: 'Agendar diagnóstico',
+      href: '/diagnostico',
+    },
   },
 
   // =============================================

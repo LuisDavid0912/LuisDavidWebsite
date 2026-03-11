@@ -1,51 +1,75 @@
-import { Box, Typography, Grid, Card, CardContent, Stack, Chip, Divider } from '@mui/material';
-import { Section, PrimaryButton, ResponsiveImage } from '@/components';
+import { Box, Typography, Grid, Card, Stack, Divider, Container } from '@mui/material';
+import { Section, PrimaryButton, SecondaryButton, ResponsiveImage } from '@/components';
 import Link from 'next/link';
 import { siteContent } from '@/content/site';
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero Section */}
       <Section
         title={siteContent.aboutHero.title}
         subtitle={siteContent.aboutHero.subtitle}
         background="default"
-        minHeight={{ xs: '60vh', md: '70vh' }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', minHeight: { xs: '30vh', md: '40vh' } }}>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              maxWidth: 700,
-              fontSize: { xs: '1.125rem', md: '1.25rem' },
-              lineHeight: 1.8,
-              textAlign: { xs: 'left', md: 'justify' },
-            }}
-          >
-            {siteContent.aboutHero.intro}
-          </Typography>
-        </Box>
+        <Grid container spacing={{ xs: 6, md: 8 }} alignItems="center">
+          <Grid item xs={12} md={5}>
+            <ResponsiveImage 
+                src={siteContent.aboutHero.photo} 
+                alt="Luis David" 
+                variant="card"
+                aspectRatio="4/5"
+                sx={{ borderRadius: 4 }}
+            />
+          </Grid>
+          <Grid item xs={12} md={7}>
+            <Typography 
+              variant="overline" 
+              sx={{ 
+                color: 'secondary.main', 
+                fontWeight: 600, 
+                letterSpacing: '0.1em', 
+                display: 'block', 
+                mb: 3,
+                fontSize: { xs: '0.75rem', md: '0.875rem' }
+              }}
+            >
+              {siteContent.aboutHero.tags}
+            </Typography>
+            <Stack spacing={3}>
+              {siteContent.aboutHero.paragraphs.map((p, i) => (
+                <Typography 
+                  key={i} 
+                  variant="body1" 
+                  sx={{ 
+                    color: 'text.secondary', 
+                    fontSize: { xs: '1.125rem', md: '1.25rem' }, 
+                    lineHeight: 1.8, 
+                    textAlign: { xs: 'left', md: 'justify' } 
+                  }}
+                >
+                  {p}
+                </Typography>
+              ))}
+            </Stack>
+          </Grid>
+        </Grid>
       </Section>
 
-      {/* My Story Section */}
-      <Section
-        id="mi-historia"
-        title={siteContent.aboutStory.title}
-        subtitle={siteContent.aboutStory.subtitle}
-        background="paper"
+      <Section 
+        title={siteContent.aboutWhy.title} 
+        background="paper" 
+        centered
       >
-        <Stack spacing={4} sx={{ maxWidth: 800 }}>
-          {siteContent.aboutStory.paragraphs.map((p, i) => (
-            <Typography
-              key={i}
-              variant="body1"
-              sx={{
-                color: 'text.secondary',
-                fontSize: { xs: '1rem', md: '1.125rem' },
-                lineHeight: 1.9,
-                textAlign: { xs: 'left', md: 'justify' },
+        <Stack spacing={3} sx={{ maxWidth: 800, mx: 'auto' }}>
+          {siteContent.aboutWhy.paragraphs.map((p, i) => (
+            <Typography 
+              key={i} 
+              variant="body1" 
+              sx={{ 
+                color: 'text.secondary', 
+                fontSize: { xs: '1rem', md: '1.125rem' }, 
+                lineHeight: 1.8, 
+                textAlign: { xs: 'left', md: 'center' } 
               }}
             >
               {p}
@@ -54,309 +78,166 @@ export default function AboutPage() {
         </Stack>
       </Section>
 
-      {/* Skills Section */}
-      <Section
-        id="habilidades"
-        title={siteContent.aboutSkills.title}
-        subtitle={siteContent.aboutSkills.subtitle}
+      <Section 
+        title={siteContent.aboutWhat.title} 
+        subtitle={siteContent.aboutWhat.subtitle} 
         background="default"
       >
         <Grid container spacing={4}>
-          {siteContent.aboutSkills.categories.map((category, i) => (
-            <Grid item xs={12} md={6} key={i}>
-              <Card
-                sx={{
-                  height: '100%',
-                  backgroundColor: 'background.paper',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  p: { xs: 3, md: 4 },
-                }}
+          {siteContent.aboutWhat.areas.map((area, i) => (
+            <Grid item xs={12} md={4} key={i}>
+              <Card 
+                sx={{ 
+                  height: '100%', 
+                  backgroundColor: 'background.paper', 
+                  border: '1px solid', 
+                  borderColor: 'divider', 
+                  p: { xs: 3, md: 4 } 
+                }} 
                 elevation={0}
               >
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  sx={{ color: 'primary.main', mb: 3, fontWeight: 600 }}
+                <Typography 
+                  variant="h5" 
+                  component="h3" 
+                  sx={{ color: 'primary.main', mb: 2, fontWeight: 600 }}
                 >
-                  {category.name}
+                  {area.title}
                 </Typography>
-                <Stack direction="row" flexWrap="wrap" gap={1}>
-                  {category.skills.map((skill, j) => (
-                    <Chip
-                      key={j}
-                      label={skill}
-                      size="medium"
-                      sx={{
-                        backgroundColor: 'action.selected',
-                        color: 'text.primary',
-                        fontWeight: 500,
-                      }}
-                    />
-                  ))}
-                </Stack>
+                <Typography 
+                  variant="body1" 
+                  sx={{ color: 'text.secondary', lineHeight: 1.7, textAlign: { xs: 'left', md: 'justify' } }}
+                >
+                  {area.description}
+                </Typography>
               </Card>
             </Grid>
           ))}
         </Grid>
       </Section>
 
-      {/* Gallery Section */}
-      {/* <Section
-        title="Galería"
-        subtitle="Un poco más sobre mí"
+      <Section 
+        title={siteContent.aboutApproach.title} 
         background="alt"
       >
-        <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
-            <ResponsiveImage 
-                src="/images/photos/originales/CSentadoPisoConMac.jpg" 
-                alt="Luis David trabajando" 
-                variant="card"
-                aspectRatio="4/3"
-                sx={{ borderRadius: 2 }}
-            />
-            </Grid>
-            <Grid item xs={12} md={6}>
-            <ResponsiveImage 
-                src="/images/photos/originales/KParadoSonriendo.jpg" 
-                alt="Conferencia" 
-                variant="card"
-                aspectRatio="4/3"
-                sx={{ borderRadius: 2 }}
-            />
-            </Grid>
+        <Grid container spacing={{ xs: 4, md: 8 }} alignItems="center">
+          <Grid item xs={12} md={6}>
+            <Stack spacing={3}>
+              {siteContent.aboutApproach.paragraphs.map((p, i) => (
+                <Typography 
+                  key={i} 
+                  variant="body1" 
+                  sx={{ 
+                    color: 'text.secondary', 
+                    fontSize: { xs: '1.125rem', md: '1.25rem' }, 
+                    lineHeight: 1.8, 
+                    textAlign: { xs: 'left', md: 'justify' } 
+                  }}
+                >
+                  {p}
+                </Typography>
+              ))}
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card 
+              sx={{ 
+                backgroundColor: 'background.paper', 
+                border: '1px solid', 
+                borderColor: 'divider', 
+                p: { xs: 4, md: 5 } 
+              }} 
+              elevation={0}
+            >
+              <Stack spacing={2} component="ul" sx={{ m: 0, pl: 2 }}>
+                {siteContent.aboutApproach.bullets.map((bullet, i) => (
+                  <Typography 
+                    key={i} 
+                    component="li" 
+                    variant="h6" 
+                    sx={{ color: 'text.primary', fontWeight: 500, mb: 1 }}
+                  >
+                    {bullet}
+                  </Typography>
+                ))}
+              </Stack>
+              <Divider sx={{ my: 3 }} />
+              <Typography 
+                variant="body1" 
+                sx={{ color: 'primary.main', fontWeight: 600, fontStyle: 'italic', lineHeight: 1.8 }}
+              >
+                {siteContent.aboutApproach.conclusion}
+              </Typography>
+            </Card>
+          </Grid>
         </Grid>
-      </Section> */}
+      </Section>
 
-      {/* Experience Section */}
-      <Section
-        id="experiencia"
-        title={siteContent.aboutExperience.title}
-        subtitle={siteContent.aboutExperience.subtitle}
-        background="primary"
+      <Section 
+        title={siteContent.aboutVision.title} 
+        background="paper" 
+        centered
       >
-        <Stack spacing={0} sx={{ maxWidth: 800 }}>
-          {siteContent.aboutExperience.items.map((item, i) => (
-            <Box
-              key={i}
-              sx={{
-                py: 4,
-                borderBottom: i < siteContent.aboutExperience.items.length - 1 ? '1px solid' : 'none',
-                borderColor: 'rgba(255,255,255,0.2)',
+        <Stack spacing={3} sx={{ maxWidth: 800, mx: 'auto' }}>
+          {siteContent.aboutVision.paragraphs.map((p, i) => (
+            <Typography 
+              key={i} 
+              variant="body1" 
+              sx={{ 
+                color: 'text.secondary', 
+                fontSize: { xs: '1rem', md: '1.125rem' }, 
+                lineHeight: 1.8, 
+                textAlign: { xs: 'left', md: 'center' } 
               }}
             >
-              <Typography
-                variant="body2"
-                sx={{
-                  color: 'secondary.main',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.1em',
-                  mb: 1,
-                }}
-              >
-                {item.period}
-              </Typography>
-              <Typography
-                variant="h5"
-                component="h3"
-                sx={{ color: 'inherit', fontWeight: 600, mb: 0.5 }}
-              >
-                {item.title}
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                sx={{ color: 'secondary.main', mb: 2 }}
-              >
-                {item.company}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: 'inherit',
-                  opacity: 0.85,
-                  lineHeight: 1.7,
-                  textAlign: { xs: 'left', md: 'justify' },
-                }}
-              >
-                {item.description}
-              </Typography>
-            </Box>
+              {p}
+            </Typography>
           ))}
         </Stack>
       </Section>
 
-      {/* Values Section */}
-      <Section
-        id="valores"
-        title={siteContent.aboutValues.title}
-        subtitle={siteContent.aboutValues.subtitle}
-        background="paper"
+      <Section 
+        title={siteContent.aboutCta.title} 
+        subtitle="Oportunidades" 
+        background="secondary" 
         centered
       >
-        <Grid container spacing={4}>
-          {siteContent.aboutValues.items.map((value, i) => (
-            <Grid item xs={12} sm={6} key={i}>
-              <Card
-                sx={{
-                  height: '100%',
-                  backgroundColor: 'background.default',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  p: { xs: 3, md: 4 },
-                }}
-                elevation={0}
-              >
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  sx={{ color: 'primary.main', mb: 2, fontWeight: 600 }}
-                >
-                  {value.title}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{
-                    color: 'text.secondary',
-                    lineHeight: 1.7,
-                    textAlign: { xs: 'left', md: 'justify' },
-                  }}
-                >
-                  {value.description}
-                </Typography>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Section>
-
-      {/* Education Section */}
-      <Section
-        id="educacion"
-        title={siteContent.aboutEducation.title}
-        subtitle={siteContent.aboutEducation.subtitle}
-        background="default"
-      >
-        <Grid container spacing={3}>
-          {siteContent.aboutEducation.items.map((item, i) => (
-            <Grid item xs={12} sm={6} md={3} key={i}>
-              <Card
-                sx={{
-                  height: '100%',
-                  backgroundColor: 'background.paper',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  p: 3,
-                }}
-                elevation={0}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: 'secondary.main',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    mb: 1,
-                  }}
-                >
-                  {item.year}
-                </Typography>
-                <Typography
-                  variant="h6"
-                  component="h3"
-                  sx={{ color: 'text.primary', mb: 1, fontWeight: 600 }}
-                >
-                  {item.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ color: 'text.secondary' }}
-                >
-                  {item.institution}
-                </Typography>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Section>
-
-      {/* Interests Section */}
-      <Section
-        id="intereses"
-        title={siteContent.aboutInterests.title}
-        subtitle={siteContent.aboutInterests.subtitle}
-        background="alt"
-        centered
-      >
-        <Typography
-          variant="body1"
-          sx={{
-            color: 'text.secondary',
-            mb: 6,
-            maxWidth: 600,
-            mx: 'auto',
-            textAlign: { xs: 'center', md: 'justify' },
-            lineHeight: 1.8,
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            color: 'text.secondary', 
+            mb: 5, 
+            maxWidth: 600, 
+            mx: 'auto', 
+            textAlign: { xs: 'center', md: 'justify' }, 
+            fontSize: { xs: '1rem', md: '1.125rem' }, 
+            lineHeight: 1.8 
           }}
         >
-          {siteContent.aboutInterests.description}
+          {siteContent.aboutCta.description}
         </Typography>
-        <Grid container spacing={4}>
-          {siteContent.aboutInterests.items.map((interest, i) => (
-            <Grid item xs={12} sm={6} md={3} key={i}>
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography
-                  variant="h5"
-                  component="h3"
-                  sx={{ color: 'primary.main', mb: 2, fontWeight: 600 }}
-                >
-                  {interest.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: 'text.secondary',
-                    lineHeight: 1.7,
-                    textAlign: { xs: 'center', md: 'justify' },
-                  }}
-                >
-                  {interest.description}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-      </Section>
-
-      {/* CTA Section */}
-      <Section
-        id="contacto-cta"
-        title="¿Quieres Trabajar Conmigo?"
-        subtitle="Contacto"
-        background="secondary"
-        centered
-      >
-        <Typography
-          variant="body1"
-          sx={{
-            color: 'text.secondary',
-            mb: 5,
-            maxWidth: 600,
-            mx: 'auto',
-            textAlign: { xs: 'center', md: 'justify' },
-            fontSize: { xs: '1rem', md: '1.125rem' },
-            lineHeight: 1.8,
-          }}
+        <Stack 
+          direction={{ xs: 'column', sm: 'row' }} 
+          spacing={3} 
+          justifyContent="center" 
+          alignItems="center"
         >
-          Si tienes un proyecto en mente o simplemente quieres conectar, no dudes en contactarme. Siempre estoy abierto a nuevas oportunidades y colaboraciones interesantes.
-        </Typography>
-        <Box sx={{ textAlign: 'center' }}>
-          <PrimaryButton component={Link} href="/contact">
-            Contáctame
+          <PrimaryButton 
+            component={Link} 
+            href={siteContent.aboutCta.button1.href} 
+            sx={{ minWidth: { xs: '100%', sm: 200 } }}
+          >
+            {siteContent.aboutCta.button1.label}
           </PrimaryButton>
-        </Box>
+          <SecondaryButton 
+            component={Link} 
+            href={siteContent.aboutCta.button2.href} 
+            sx={{ minWidth: { xs: '100%', sm: 200 } }}
+          >
+            {siteContent.aboutCta.button2.label}
+          </SecondaryButton>
+        </Stack>
       </Section>
     </>
   );
 }
+
