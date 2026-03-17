@@ -54,7 +54,25 @@ export default function Hero() {
                   lineHeight: 1.1,
                 }}
               >
-                {siteContent.hero.headline}
+                {siteContent.hero.headline.split(/(Inteligencia Artificial)/gi).map((part, i) => 
+                  part.toLowerCase() === 'inteligencia artificial' ? (
+                    <Box 
+                      component="span" 
+                      key={i} 
+                      sx={{ 
+                        background: isLight 
+                          ? `linear-gradient(90deg, ${brandColors.primary} 0%, ${brandColors.black} 180%)`
+                          : `linear-gradient(90deg, ${brandColors.primary} 0%, ${brandColors.secondary} 100%)`,
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        color: 'transparent',
+                      }}
+                    >
+                      {part}
+                    </Box>
+                  ) : part
+                )}
               </Typography>
               <Typography
                 variant="body1"
