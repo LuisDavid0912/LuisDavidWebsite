@@ -34,3 +34,7 @@ next-env.d.ts
 
 #fotos
 public/images/photos/ligeros
+
+# Secrets
+.env
+*.key

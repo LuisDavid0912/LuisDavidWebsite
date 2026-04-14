@@ -1,0 +1,46 @@
+# =========================================================================
+# CORS, CACHE & SECURITY HEADERS para Hostinger (Next.js Static Export)
+# =========================================================================
+
+<IfModule mod_headers.c>
+    # 1. Prevenir Clickjacking (CWE-1021)
+    # Evita que tu sitio sea cargado en un iframe dentro de otro sitio malicioso.
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # 2. XSS Protection 
+    # Detiene la carga de páginas al detectar un ataque XSS cruzado (si el navegador lo soporta).
+    Header set X-XSS-Protection "1; mode=block"
+
+    # 3. Prevenir MIME-Type Sniffing (CWE-430)
+    # Obliga al navegador a respetar el Content-Type que tú declares (evita inyecciones disfrazadas de imágenes/estilos).
+    Header set X-Content-Type-Options "nosniff"
+
+    # 4. Strict Transport Security (HSTS)
+    # Fuerza a los navegadores a usar solo conexiones seguras (HTTPS) durante el próximo año.
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # 5. Referrer Policy
+    # Controla la información de referer que se envía al navegar de tu sitio hacia afuera o viceversa.
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # 6. Basic Content Security Policy (CSP)
+    # Lista blanca de qué orígenes pueden cargar scripts, fuentes, imágenes, etc. 
+    # Esta es una versión permisiva ('unsafe-inline') para no romper Material UI ni Next.js Scripts.
+    Header set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';"
+</IfModule>
+
+# Mod Rewrite para servir Next.js SSG
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Forzar HTTPS si se accede por HTTP
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  # Reglas nativas para manejar las rutas estáticas de Next.js
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>

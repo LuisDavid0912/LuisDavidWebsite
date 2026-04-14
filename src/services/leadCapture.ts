@@ -7,8 +7,8 @@
  */
 
 const N8N_WEBHOOK_URL = 'https://n8n.luisdavidmag.com/webhook/lead-capture';
-// JWT token signed with HS256 (sub: website, iss: luisdavidmag.com)
-const N8N_JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ3ZWJzaXRlIiwiaXNzIjoibHVpc2RhdmlkbWFnLmNvbSIsImlhdCI6MTc3MDgzOTIzOH0.ckl3svlOCOoh-rSEfXM5m32CSSJc2KrJwf3cSOc0v_E';
+// To set this token, add NEXT_PUBLIC_N8N_JWT_TOKEN="eyJhb..." to your .env file
+const N8N_JWT_TOKEN = process.env.NEXT_PUBLIC_N8N_JWT_TOKEN || '';
 const REQUEST_TIMEOUT_MS = 15_000;
 
 interface LeadPayload {
