@@ -23,7 +23,11 @@ interface FieldErrors {
   email?: string;
 }
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Stricter email regex (matches the one used in the service layer).
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+// sessionStorage key used to prevent resubmission within the same session.
+const SESSION_SUBMIT_KEY = 'ldm_lead_submitted';
 
 interface LeadCaptureFormProps {
   /** 'default' = vertical stacked; 'compact' = inline row on md+; 'contact' = contact page with message field */
@@ -53,6 +57,7 @@ export default function LeadCaptureForm({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [hp, setHp] = useState(''); // Honeypot — must stay empty for real users.
   const [status, setStatus] = useState<FormStatus>('idle');
   const [resultMessage, setResultMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
@@ -99,12 +104,36 @@ export default function LeadCaptureForm({
 
     if (!validate()) return;
 
+    // Bot trap — if filled, silently pretend success.
+    if (hp.trim().length > 0) {
+      setStatus('success');
+      setResultMessage(resolvedSuccessMsg);
+      onSuccess?.();
+      return;
+    }
+
+    // Anti-duplicate guard for the same session (per email + variant).
+    const sessionKey = `${SESSION_SUBMIT_KEY}:${variant}:${(resourceSlug ?? '')}:${email.trim().toLowerCase()}`;
+    if (typeof window !== 'undefined') {
+      try {
+        if (window.sessionStorage.getItem(sessionKey)) {
+          setStatus('success');
+          setResultMessage(resolvedSuccessMsg);
+          onSuccess?.();
+          return;
+        }
+      } catch {
+        // sessionStorage may be unavailable (private mode); fall through.
+      }
+    }
+
     setStatus('loading');
     setResultMessage('');
 
     const result = await submitLead({
       name: name.trim(),
       email: email.trim(),
+      hp,
       ...(resourceSlug ? { resource: resourceSlug } : {}),
       ...(isContact && message.trim() ? { message: message.trim() } : {}),
     });
@@ -115,7 +144,15 @@ export default function LeadCaptureForm({
       setName('');
       setEmail('');
       setMessage('');
+      setHp('');
       setFieldErrors({});
+      if (typeof window !== 'undefined') {
+        try {
+          window.sessionStorage.setItem(sessionKey, '1');
+        } catch {
+          /* ignore */
+        }
+      }
       onSuccess?.();
     } else {
       setStatus('error');
@@ -193,7 +230,8 @@ export default function LeadCaptureForm({
         </Alert>
       </Collapse>
 
-      {/* Honeypot field (hidden from users, catches bots) */}
+      {/* Honeypot field (hidden from users, catches bots).
+          Real users never fill this; if it has a value at submit time we drop the request. */}
       <Box
         sx={{
           position: 'absolute',
@@ -206,8 +244,14 @@ export default function LeadCaptureForm({
       >
         <TextField
           name="website"
+          value={hp}
+          onChange={(e) => setHp(e.target.value)}
           tabIndex={-1}
           autoComplete="off"
+          inputProps={{
+            tabIndex: -1,
+            'aria-hidden': true,
+          }}
         />
       </Box>
 

@@ -31,7 +31,11 @@ import Link from 'next/link';
 type SurveyPhase = 'questions' | 'results';
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Stricter email regex (matches the one used in the service layer).
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+// sessionStorage key used to prevent resubmission within the same session.
+const SESSION_DIAG_KEY = 'ldm_diag_submitted';
 
 // ---------------------------------------------------------------------------
 // Component
@@ -50,6 +54,7 @@ export default function DiagnosticSurvey() {
   // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [hp, setHp] = useState(''); // Honeypot — must stay empty for real users.
   const [formStatus, setFormStatus] = useState<FormStatus>('idle');
   const [resultMessage, setResultMessage] = useState('');
   const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string }>({});
@@ -103,6 +108,7 @@ export default function DiagnosticSurvey() {
       setPhase('questions');
       setName('');
       setEmail('');
+      setHp('');
       setFormStatus('idle');
       setResultMessage('');
       setFieldErrors({});
@@ -125,6 +131,27 @@ export default function DiagnosticSurvey() {
     e.preventDefault();
     if (!validate()) return;
 
+    // Bot trap — if filled, silently pretend success.
+    if (hp.trim().length > 0) {
+      setFormStatus('success');
+      setResultMessage(diagnostic.form.successMessage);
+      return;
+    }
+
+    // Anti-duplicate guard for the same session (per email).
+    const sessionKey = `${SESSION_DIAG_KEY}:${email.trim().toLowerCase()}`;
+    if (typeof window !== 'undefined') {
+      try {
+        if (window.sessionStorage.getItem(sessionKey)) {
+          setFormStatus('success');
+          setResultMessage(diagnostic.form.successMessage);
+          return;
+        }
+      } catch {
+        // sessionStorage may be unavailable (private mode); fall through.
+      }
+    }
+
     setFormStatus('loading');
     setResultMessage('');
 
@@ -141,12 +168,20 @@ export default function DiagnosticSurvey() {
     const res = await submitLead({
       name: name.trim(),
       email: email.trim(),
+      hp,
       diagnostic: JSON.stringify(diagnosticData),
     });
 
     if (res.ok) {
       setFormStatus('success');
       setResultMessage(diagnostic.form.successMessage);
+      if (typeof window !== 'undefined') {
+        try {
+          window.sessionStorage.setItem(sessionKey, '1');
+        } catch {
+          /* ignore */
+        }
+      }
     } else {
       setFormStatus('error');
       setResultMessage(res.message);
@@ -481,6 +516,28 @@ export default function DiagnosticSurvey() {
                 noValidate
                 aria-label="Formulario de diagnóstico"
               >
+                {/* Honeypot field (hidden from users, catches bots).
+                    Real users never fill this; if it has a value at submit time we drop the request. */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    opacity: 0,
+                    height: 0,
+                    overflow: 'hidden',
+                  }}
+                  aria-hidden="true"
+                >
+                  <TextField
+                    name="website"
+                    value={hp}
+                    onChange={(e) => setHp(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    inputProps={{ tabIndex: -1, 'aria-hidden': true }}
+                  />
+                </Box>
+
                 <Stack spacing={2}>
                   <TextField
                     id="diagnostic-name"
