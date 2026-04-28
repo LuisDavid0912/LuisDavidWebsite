@@ -145,7 +145,13 @@ export const siteContent = {
   newsletter: {
     subtitle: 'Newsletter',
     title: 'Mantente al Día con las Últimas Tendencias',
+    headline: {
+      before: 'Mantente al día con las últimas ',
+      em: 'tendencias',
+      after: '.',
+    },
     description: 'Recibe insights sobre Data Engineering, Automatización e IA directamente en tu bandeja de entrada.',
+    fine: 'Sin spam · darse de baja cuando quieras',
     namePlaceholder: 'Tu nombre',
     nameLabel: 'Nombre',
     emailPlaceholder: 'tu@email.com',
@@ -430,8 +436,14 @@ export const siteContent = {
   // =============================================
 
   resources: {
-    subtitle: 'Recursos Gratis',
+    subtitle: 'Recursos',
     title: 'Aprende con Materiales Gratuitos',
+    headline: {
+      before: 'Guías, plantillas y herramientas ',
+      em: 'gratuitas',
+      after: '.',
+    },
+    lead: 'Material práctico para empezar a implementar IA y automatización en tu negocio sin costo — el mismo que uso en mis consultorías.',
     description: 'Guías, plantillas y recursos prácticos sobre Data Engineering, Automatización e IA. Solo necesitas tu nombre y correo para descargarlos.',
     emptyMessage: 'Próximamente habrá recursos disponibles. ¡Vuelve pronto!',
     form: {
