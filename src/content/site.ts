@@ -176,6 +176,20 @@ export const siteContent = {
       'Mi trabajo consiste en ayudar a personas y empresas a entender y aplicar herramientas como inteligencia artificial, automatización y análisis de datos para construir sistemas que mejoren la forma en que funcionan los negocios.',
       'Más allá de la tecnología, mi enfoque es simple: convertir herramientas complejas en soluciones prácticas que generen resultados reales.',
     ],
+    kicker: 'Sobre mí',
+    headline: {
+      before: 'Ingeniería de datos aplicada a ',
+      em: 'negocios',
+      after: '.',
+    },
+    meta: [
+      'Luis David',
+      'Ingeniero de Datos',
+      'Inteligencia Artificial',
+      'Automatización',
+      'Negocios Digitales',
+    ],
+    lead: 'Soy ingeniero de datos y trabajo en la intersección entre tecnología y negocios.',
   },
 
   aboutWhy: {
@@ -189,11 +203,32 @@ export const siteContent = {
       'Por eso decidí enfocar mi trabajo en cerrar esa brecha.',
       'Mi objetivo es acercar herramientas como la inteligencia artificial y la automatización a quienes quieren aprender, construir o mejorar sus negocios.',
     ],
+    kicker: 'Por qué hago esto',
+    headline: {
+      before: 'Estamos viviendo uno de los cambios tecnológicos más ',
+      em: 'importantes',
+      after: ' de nuestra generación.',
+    },
+    body: [
+      'La inteligencia artificial, la automatización y los datos están transformando la forma en que se crean empresas, se toman decisiones y se construyen oportunidades.',
+      'Sin embargo, la mayoría de las personas y negocios todavía no sabe cómo utilizar esta tecnología de forma práctica.',
+      'Muchos escuchan hablar de inteligencia artificial, pero no saben cómo aplicarla en su negocio. Otros quieren emprender en internet, pero no tienen la infraestructura tecnológica para hacerlo.',
+    ],
+    accent:
+      'Por eso decidí enfocar mi trabajo en cerrar esa brecha: acercar herramientas como la inteligencia artificial y la automatización a quienes quieren aprender, construir o mejorar sus negocios.',
   },
 
   aboutWhat: {
     title: 'Qué hago',
     subtitle: 'Mi trabajo se centra en tres áreas principales.',
+    kicker: 'Qué hago',
+    headline: {
+      before: 'Mi trabajo se centra en tres áreas ',
+      em: 'principales',
+      after: '.',
+    },
+    description:
+      'Distintas formas de aplicar lo mismo: traducir tecnología compleja en soluciones prácticas que generen valor real para personas y empresas.',
     areas: [
       {
         title: 'Formación en inteligencia artificial',
@@ -223,6 +258,32 @@ export const siteContent = {
       'tomar mejores decisiones',
     ],
     conclusion: 'No se trata solo de usar inteligencia artificial, sino de integrarla dentro del funcionamiento del negocio.',
+    kicker: 'Mi enfoque',
+    headline: {
+      before: 'La tecnología solo tiene valor cuando se aplica a ',
+      em: 'resolver problemas reales',
+      after: '.',
+    },
+    description:
+      'Por eso mi enfoque consiste en construir sistemas que ayuden a los negocios a crecer en cuatro frentes — no se trata solo de usar inteligencia artificial, sino de integrarla dentro del funcionamiento del negocio.',
+    pillars: [
+      {
+        title: 'Atraer clientes',
+        description: 'Sistemas que generan demanda y capturan oportunidades de forma constante.',
+      },
+      {
+        title: 'Automatizar procesos',
+        description: 'Eliminar tareas repetitivas y liberar tiempo para lo que importa.',
+      },
+      {
+        title: 'Organizar los datos',
+        description: 'Convertir información dispersa en una fuente confiable de verdad.',
+      },
+      {
+        title: 'Mejores decisiones',
+        description: 'Reportes claros que permiten actuar con criterio y oportunidad.',
+      },
+    ],
   },
 
   aboutVision: {
@@ -232,6 +293,16 @@ export const siteContent = {
       'La inteligencia artificial, la automatización y los datos serán herramientas fundamentales para quienes quieran emprender, trabajar o liderar empresas.',
       'Mi objetivo es contribuir a esa transición ayudando a formar personas que entiendan estas herramientas y a construir negocios que puedan utilizarlas para crecer.',
     ],
+    kicker: 'Mi visión',
+    quote: {
+      before:
+        'Los negocios del futuro serán construidos por personas que entiendan cómo utilizar tecnología para crear soluciones. La inteligencia artificial, la automatización y los datos serán ',
+      em: 'herramientas fundamentales',
+      after: ' para quienes quieran emprender, trabajar o liderar empresas.',
+    },
+    signatureName: 'Luis David',
+    signatureRole: 'Ingeniero de Datos · Medellín, Colombia',
+    signatureInitials: 'LD',
   },
 
   aboutCta: {
@@ -244,6 +315,12 @@ export const siteContent = {
     button2: {
       label: 'Agendar diagnóstico',
       href: '/diagnostico',
+    },
+    kicker: 'Oportunidades',
+    headline: {
+      before: 'Construyendo el ',
+      em: 'futuro digital',
+      after: '.',
     },
   },
 
