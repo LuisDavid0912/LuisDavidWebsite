@@ -45,3 +45,24 @@ public/images/photos/ligeros
 
 # Claude Code per-user settings
 .claude/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS Metadata
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Common logs and archives
+*.log
+*.zip
+*.tar.gz
+*.tgz
+*.rar
