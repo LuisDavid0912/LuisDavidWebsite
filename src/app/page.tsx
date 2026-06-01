@@ -1,3 +1,5 @@
+'use client';
+
 import { Box, Typography, Grid, Card, CardContent, Stack, Chip } from '@mui/material';
 import Link from 'next/link';
 import { Hero, Section, PrimaryButton, ProjectCard, LeadCaptureForm } from '@/components';
