@@ -11,7 +11,7 @@ export const siteContent = {
     links: [
       { label: 'Inicio', href: '/' },
       { label: 'Sobre mí', href: '/about' },
-      { label: 'Mini Apps', href: '/projects' },
+      { label: 'Mini Apps', href: '/miniapps' },
       { label: 'Aprende IA', href: '/talento' },
       { label: 'Recursos', href: '/resources' },
       { label: 'Contacto', href: '/contact' },

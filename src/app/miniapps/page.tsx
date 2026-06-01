@@ -51,7 +51,7 @@ import { generateOpenAICompletion, generateGeminiCompletion, generateOpenAIImage
 
 type ActiveTab = 'apps' | 'config';
 
-export default function ProjectsPage() {
+export default function MiniAppsPage() {
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<ActiveTab>('apps');
   
