@@ -38,6 +38,12 @@ export const siteContent = {
   
   homeContext: {
     title: 'Los negocios del futuro se construyen con sistemas, no solo con esfuerzo.',
+    kicker: 'El contexto',
+    headline: {
+      before: 'Los negocios del futuro se construyen con ',
+      em: 'sistemas',
+      after: ', no solo con esfuerzo.',
+    },
     paragraphs: [
       'La inteligencia artificial y los datos están cambiando la forma en que se construyen los negocios.',
       'Hoy las empresas más eficientes no trabajan más horas: utilizan tecnología para automatizar procesos, entender a sus clientes y tomar mejores decisiones.',
@@ -62,6 +68,12 @@ export const siteContent = {
 
   homeWhatIDo: {
     title: 'Cómo ayudo a aplicar inteligencia artificial en los negocios.',
+    kicker: 'Qué hago',
+    headline: {
+      before: 'Cómo ayudo a aplicar ',
+      em: 'inteligencia artificial',
+      after: ' en los negocios.',
+    },
     paragraphs: [
       'Mi trabajo consiste en traducir tecnología compleja en sistemas prácticos que ayudan a los negocios a crecer.',
       'Lo hago a través de tres áreas principales.',
@@ -84,6 +96,12 @@ export const siteContent = {
 
   homeMethodology: {
     title: 'Un proceso simple para implementar tecnología.',
+    kicker: 'Metodología',
+    headline: {
+      before: 'Un proceso ',
+      em: 'simple',
+      after: ' para implementar tecnología.',
+    },
     steps: [
       {
         step: 'Paso 1',
@@ -114,6 +132,12 @@ export const siteContent = {
 
   homeExamples: {
     title: 'Ejemplos de lo que se puede construir con inteligencia artificial.',
+    kicker: 'Casos de uso',
+    headline: {
+      before: 'Ejemplos de lo que se puede construir con ',
+      em: 'inteligencia artificial',
+      after: '.',
+    },
     examples: [
       {
         title: 'Automatización de captación de clientes',
@@ -137,6 +161,12 @@ export const siteContent = {
   homeCta: {
     subtitle: '¿Listo para empezar?',
     title: 'Llevemos Tu Proyecto al Siguiente Nivel',
+    kicker: 'Oportunidades',
+    headline: {
+      before: 'Llevemos Tu Proyecto al ',
+      em: 'Siguiente Nivel',
+      after: '',
+    },
     description: 'Estoy aquí para ayudarte a transformar tus ideas en soluciones tecnológicas. Ya sea que necesites automatizar procesos, construir pipelines de datos o implementar inteligencia artificial, hablemos sobre cómo puedo aportar valor a tu proyecto.',
     buttonLabel: 'Contactar Ahora',
     buttonHref: '/contact',
