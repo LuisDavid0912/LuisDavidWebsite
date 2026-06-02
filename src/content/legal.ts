@@ -1,105 +1,135 @@
 export const legalContent = {
   privacy: {
     title: 'Política de Privacidad',
-    lastUpdated: '09 de febrero de 2026',
+    lastUpdated: '02 de junio de 2026',
     sections: [
       {
         heading: '1. Responsable del Tratamiento',
         content: [
           'El responsable del tratamiento de los datos personales recabados a través de este sitio web (luisdavidmag.com) es Luis David Mag.',
-          'Puedes contactarme directamente a través del correo electrónico: yosoy@luisdavidmag.com para cualquier duda o solicitud relacionada con tu privacidad.',
+          'Puedes contactarme directamente a través del correo electrónico: yosoy@luisdavidmag.com para cualquier duda, aclaración o solicitud relacionada con tu privacidad y el tratamiento de tus datos.',
         ],
       },
       {
-        heading: '2. Datos que Recabamos',
+        heading: '2. Datos que Recabamos y Cómo los Obtenemos',
         content: [
-          'Actualmente, este sitio web recaba los siguientes datos personales únicamente cuando decides compartirlos voluntariamente a través de los medios de contacto:',
-          '• Nombre completo (si lo proporcionas en el contacto).',
-          '• Correo electrónico (para poder responderte).',
-          '• Información técnica básica (dirección IP, tipo de navegador) que se recopila automáticamente por motivos de seguridad y funcionamiento del servidor (logs estándar).',
+          'Este sitio web recopila información bajo dos modalidades principales: de forma activa (cuando nos la proporcionas directamente) y de forma técnica/pasiva (para el funcionamiento técnico del sitio y el uso de las herramientas interactivas).',
+          'A) Datos proporcionados voluntariamente por el usuario:',
+          '• Formularios de Contacto y Diagnóstico: Nombre completo, dirección de correo electrónico, detalles sobre tu negocio, necesidades de automatización o inteligencia artificial, y cualquier mensaje adicional que decidas escribir.',
+          '• Descarga de Recursos Gratuitos: Nombre y correo electrónico para la entrega de guías, plantillas u otros materiales interactivos.',
+          'B) Datos técnicos y de uso de las Mini Apps de IA (OpenAI / Google Gemini):',
+          '• Claves de API (API Keys): Para utilizar nuestras Mini Apps (como YouTube Thumbnail Pro, Auditor SEO Express, etc.), debes ingresar tus propias claves de API de OpenAI o Google. Estas claves se almacenan exclusivamente en tu propio navegador web (mediante localStorage o sessionStorage, según elijas) y nunca son enviadas, guardadas ni procesadas en nuestros servidores. La comunicación se realiza directamente desde tu navegador a los servidores oficiales de OpenAI y Google.',
+          '• Entradas y Prompts de las Apps: Los textos, enlaces, imágenes o código HTML que ingreses en las Mini Apps para su procesamiento se envían directamente a las APIs correspondientes de OpenAI o Google. Este sitio no almacena tus prompts, código HTML ni los resultados de los análisis en ninguna base de datos propia.',
+          '• Auditoría de URLs y Proxy CORS: Para la funcionalidad de análisis de landing pages mediante URL en el "Auditor SEO Express", el sitio realiza una petición a través del servicio proxy público "api.allorigins.win" para recuperar el HTML de la página objetivo y procesarlo en tu navegador. No debes auditar URLs que contengan información confidencial o credenciales de acceso privado.',
+          'C) Datos de navegación estándar:',
+          '• Información técnica básica (dirección IP, tipo de navegador, sistema operativo, páginas visitadas y tiempos de acceso) recopilada automáticamente por el servidor de alojamiento (logs estándar) con fines exclusivos de seguridad y prevención de abusos.',
         ],
       },
       {
-        heading: '3. Finalidades del Tratamiento',
+        heading: '3. Finalidades del Tratamiento de Datos',
         content: [
-          'Tus datos personales serán utilizados exclusivamente para las siguientes finalidades:',
-          '• Responder a tus consultas, solicitudes de información o propuestas de colaboración profesional.',
-          '• Mantener una comunicación profesional relacionada con los servicios o temas tratados.',
-          '• No se utilizarán tus datos para el envío de spam, newsletters no solicitadas ni publicidad de terceros.',
+          'Tus datos personales y la información técnica recopilada serán utilizados únicamente para:',
+          '• Responder y dar seguimiento a tus mensajes de contacto, dudas o propuestas de colaboración.',
+          '• Procesar y analizar tus respuestas en el formulario de Diagnóstico para ofrecerte una propuesta de consultoría personalizada y agendar una llamada de asesoramiento.',
+          '• Enviar el recurso digital gratuito que hayas solicitado descargar.',
+          '• Permitir el correcto funcionamiento de las Mini Apps de IA directamente en tu navegador, canalizando las consultas a los proveedores de inteligencia artificial oficiales.',
+          '• Garantizar la seguridad técnica del sitio, detectar actividades fraudulentas o maliciosas, y cumplir con obligaciones legales.',
+          'Bajo ninguna circunstancia utilizaremos tus datos para enviar publicidad no solicitada (spam) ni los venderemos a terceras partes.',
         ],
       },
       {
-        heading: '4. Base Legal y Consentimiento',
+        heading: '4. Base Legal para el Tratamiento',
         content: [
-          'La base legal para el tratamiento de tus datos es tu consentimiento expreso. Al enviarme un correo electrónico o utilizar cualquier formulario de contacto disponible en el sitio, aceptas que trate tus datos conforme a esta política para atender tu solicitud.',
+          'La base jurídica que legitima el tratamiento de tus datos es tu consentimiento expreso y libre. Al completar y enviar cualquiera de nuestros formularios, aceptar la descarga de recursos, o ingresar tus datos para configurar las herramientas de IA, aceptas expresamente que tratemos tus datos de conformidad con lo establecido en esta Política de Privacidad.',
         ],
       },
       {
-        heading: '5. Compartición de Datos y Proveedores',
+        heading: '5. Destinatarios de los Datos y Proveedores de Confianza',
         content: [
-          'Tus datos no se venden ni se ceden a terceros. Sin embargo, para el funcionamiento técnico del sitio, utilizo proveedores de servicios de confianza que actúan como encargados del tratamiento:',
-          '• Hostinger: Proveedor de alojamiento web (infraestructura).',
-          '• Servicios de Automatización (n8n/Supabase): Podrían utilizarse eventualmente para procesar formularios de contacto de manera segura.',
+          'No compartimos, vendemos, alquilamos ni cedemos tus datos personales a terceros con fines comerciales. Sin embargo, para poder ofrecerte el sitio y sus funciones, nos apoyamos en proveedores de servicios tecnológicos que actúan como encargados del tratamiento bajo estrictas medidas de seguridad:',
+          '• Hostinger: Proveedor de alojamiento web (almacena el sitio estático y genera logs estándar del servidor).',
+          '• n8n: Plataforma de automatización alojada en un servidor privado (VPS) propio. Los formularios de contacto, descargas y diagnósticos envían la información a través de webhooks seguros gestionados por n8n.',
+          '• Supabase: Base de datos segura e independiente utilizada exclusivamente por n8n para almacenar los leads de forma segura y estructurada. El frontend del sitio nunca tiene acceso directo ni credenciales de conexión a esta base de datos.',
+          '• OpenAI y Google Gemini (Alphabet Inc.): Al usar las Mini Apps con tus propias claves, tus datos de entrada (prompts, imágenes, código de páginas) se transmiten de manera directa y cifrada a sus respectivos servidores. Su uso está sujeto a los términos de privacidad para desarrolladores de OpenAI y Google.',
+          '• api.allorigins.win: Proxy CORS público e intermedio utilizado únicamente para descargar la estructura HTML pública de las URLs que decidas analizar en el Auditor SEO Express.',
         ],
       },
       {
-        heading: '6. Conservación de Datos',
+        heading: '6. Conservación de tus Datos',
         content: [
-          'Conservaré tus datos durante el tiempo necesario para cumplir con la finalidad para la que fueron recabados (por ejemplo, mientras dure nuestra conversación profesional) o hasta que solicites su eliminación.',
+          'Conservaremos tus datos de contacto y de diagnósticos únicamente durante el tiempo que sea necesario para cumplir con las finalidades descritas (por ejemplo, para resolver tu consulta o llevar a cabo la relación de consultoría) o hasta que solicites expresamente su supresión.',
+          'Las claves de API de IA y los datos de sesión de las Mini Apps permanecen en tu dispositivo local y serán borrados inmediatamente cuando decidas hacer clic en "Borrar Claves" o, en el caso de sessionStorage, al cerrar la pestaña o el navegador.',
         ],
       },
       {
-        heading: '7. Derechos ARCO',
+        heading: '7. Medidas de Seguridad',
         content: [
-          'Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (México), tienes derecho a Acceder, Rectificar, Cancelar u Oponerte (ARCO) al tratamiento de tus datos.',
-          'Para ejercer estos derechos, simplemente envía un correo a yosoy@luisdavidmag.com detallando tu solicitud. Te responderé a la brevedad posible.',
+          'Implementamos medidas de seguridad técnicas, administrativas y organizativas para proteger tus datos personales contra pérdidas, usos no autorizados o accesos indebidos. Toda transmisión de datos en el sitio (incluyendo los formularios y las conexiones con las APIs de IA) se realiza bajo el protocolo seguro HTTPS con cifrado SSL.',
+          'Adicionalmente, hemos diseñado un modelo de seguridad "privado por diseño" para las Mini Apps, de modo que tu información más sensible (claves de API) nunca toca nuestros servidores y se almacena localmente de forma controlada por ti.',
         ],
       },
       {
-        heading: '8. Cambios a esta Política',
+        heading: '8. Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición)',
         content: [
-          'Me reservo el derecho de actualizar esta política de privacidad en cualquier momento para cumplir con cambios legales o técnicos. La fecha de la última actualización siempre estará visible al inicio de esta página.',
+          'De acuerdo con la legislación aplicable en materia de protección de datos (como la Ley Federal de Protección de Datos Personales en Posesión de los Particulares en México, así como estándares internacionales equivalentes como el GDPR), tienes el derecho en todo momento de acceder a los datos personales que poseemos sobre ti, rectificarlos si son incorrectos, solicitar su cancelación/eliminación o oponerte a su tratamiento para fines específicos.',
+          'Para ejercer cualquiera de tus derechos ARCO, simplemente envía una solicitud por escrito desde la dirección de correo electrónico asociada al correo: yosoy@luisdavidmag.com. Responderemos a tu solicitud con la mayor brevedad posible y a más tardar en los plazos marcados por la ley.',
+        ],
+      },
+      {
+        heading: '9. Cambios a esta Política de Privacidad',
+        content: [
+          'Nos reservamos el derecho de modificar o actualizar esta Política de Privacidad en cualquier momento para adaptarla a novedades legislativas, jurisprudenciales o por cambios en las funcionalidades técnicas y de las Mini Apps del sitio web. Te recomendamos revisar esta página periódicamente para mantenerte informado.',
         ],
       },
     ],
   },
 
   cookies: {
-    title: 'Política de Cookies',
-    lastUpdated: '09 de febrero de 2026',
+    title: 'Política de Cookies y Almacenamiento Local',
+    lastUpdated: '02 de junio de 2026',
     intro: [
-      'Esta política explica qué son las cookies y cómo se utilizan en luisdavidmag.com. Quiero ser completamente transparente contigo: este sitio está diseñado para respetar tu privacidad.',
+      'En luisdavidmag.com nos tomamos muy en serio tu privacidad. Esta política detalla de forma clara y transparente qué tecnologías de almacenamiento en el navegador utilizamos, qué datos guardamos y cómo puedes controlarlos.',
+      'Queremos que navegues con total tranquilidad: este sitio web no utiliza cookies invasivas de rastreo publicitario, marketing de terceros (como el píxel de Facebook) ni herramientas de rastreo cruzado.',
     ],
     sections: [
       {
-        heading: '¿Qué son las cookies?',
+        heading: '1. ¿Qué son las cookies y el almacenamiento local?',
         content: [
-          'Las cookies son pequeños archivos de texto que los sitios web guardan en tu dispositivo (ordenador o móvil) cuando los visitas. Permiten que el sitio "recuerde" tus acciones y preferencias durante un tiempo.',
+          'Las cookies son pequeños archivos de texto que los sitios web guardan en tu navegador cuando los visitas. Facilitan funciones básicas como recordar tus preferencias.',
+          'El almacenamiento local (localStorage y sessionStorage) es una tecnología moderna integrada en tu navegador que nos permite guardar datos técnicos con mayor capacidad y seguridad que las cookies tradicionales, sin enviar dicha información automáticamente al servidor en cada petición HTTP.',
         ],
       },
       {
-        heading: 'Estado Actual del Sitio',
+        heading: '2. Tecnologías de Almacenamiento Utilizadas en este Sitio',
         content: [
-          'Por defecto, este sitio web NO utiliza cookies invasivas, de rastreo publicitario ni de marketing (como el Pixel de Facebook o cookies de terceros para retargeting).',
-          'El sitio funciona principalmente como un portafolio estático e informativo. Tu navegación es privada.',
+          'Utilizamos almacenamiento local y de sesión estrictamente con fines técnicos y para posibilitar las herramientas interactivas (Mini Apps). Detallamos las variables que pueden guardarse en tu navegador:',
+          'A) Almacenamiento de Preferencias:',
+          '• theme-mode: Guarda tu preferencia estética del sitio (modo oscuro o modo claro) para que se aplique automáticamente en tus siguientes visitas.',
+          'B) Almacenamiento de Mini Apps de IA (Configurable por el usuario):',
+          '• Claves de API (openai_api_key, gemini_api_key): Si decides guardar tus claves de API de forma permanente para no tener que escribirlas cada vez, se guardan en el localStorage de tu navegador. Si seleccionas la opción de no recordarlas de forma permanente, se almacenan únicamente en el sessionStorage (se destruyen al cerrar la pestaña).',
+          '• Opciones de Configuración de las Apps: Ajustes menores de las herramientas (como el modelo de IA seleccionado o la persistencia de claves).',
+          'C) Seguridad y Prevención de Spam (sessionStorage):',
+          '• Token de envío de leads: Al enviar de forma exitosa un formulario (de contacto, recurso o diagnóstico), guardamos una marca de sesión temporal en el sessionStorage para evitar envíos duplicados accidentales o repetitivos durante tu misma visita.',
         ],
       },
       {
-        heading: 'Tipos de Cookies que Podrían Usarse',
+        heading: '3. Cookies y Herramientas de Terceros',
         content: [
-          'En el futuro, o dependiendo de funcionalidades técnicas específicas, podrían utilizarse:',
-          '• Cookies Técnicas/Esenciales: Necesarias para el funcionamiento básico del sitio (ej. recordar tu preferencia de modo oscuro o sesión, si aplicara).',
-          '• Cookies Analíticas: Si se llegaran a implementar herramientas de medición (como Google Analytics) para entender el tráfico de forma anónima, se te informará oportunamente.',
+          'Para mantener un sitio web limpio y respetuoso con tu privacidad, hemos decidido prescindir por completo de cookies de analítica invasiva o de remarketing.',
+          'Si interactúas con enlaces externos (como Skool, GitHub, LinkedIn, etc.), dichos sitios de terceros pueden implantar sus propias cookies cuando los visitas. Te sugerimos revisar las políticas de cookies de dichas plataformas al acceder a ellas.',
         ],
       },
       {
-        heading: 'Control y Desactivación',
+        heading: '4. Cómo Controlar, Limpiar o Desactivar el Almacenamiento',
         content: [
-          'Puedes desactivar o borrar las cookies en cualquier momento a través de la configuración de tu navegador. Aquí tienes los enlaces a las guías oficiales de los principales navegadores:',
-          '• Google Chrome',
-          '• Mozilla Firefox',
-          '• Safari',
-          '• Microsoft Edge',
+          'Tienes el control absoluto de tus datos en todo momento:',
+          '• Dentro del Sitio: En la sección de configuración de las Mini Apps de IA, puedes hacer clic en el botón "Borrar Claves" para eliminar instantáneamente cualquier API Key guardada de tu localStorage.',
+          '• Desde tu Navegador: Puedes borrar las cookies, el localStorage y el sessionStorage del sitio luisdavidmag.com en cualquier momento a través del panel de configuración de privacidad de tu navegador. Si deseas saber cómo hacerlo en tu navegador específico, consulta los siguientes enlaces oficiales:',
+          '• Google Chrome (Borrar cookies y datos de sitios)',
+          '• Mozilla Firefox (Limpiar cookies y datos de sitios)',
+          '• Apple Safari (Gestionar cookies y datos de sitios web)',
+          '• Microsoft Edge (Eliminar cookies y datos del explorador)',
+          'Ten en cuenta que si deshabilitas por completo el almacenamiento local, es posible que no puedas hacer uso de las Mini Apps de IA de forma óptima (ya que requieren recordar las claves de API temporalmente para hacer las consultas) y que debas configurar el modo oscuro en cada visita.',
         ],
       },
     ],
@@ -107,50 +137,54 @@ export const legalContent = {
 
   legal: {
     title: 'Aviso Legal',
-    lastUpdated: '09 de febrero de 2026',
+    lastUpdated: '02 de junio de 2026',
     sections: [
       {
         heading: '1. Datos Identificativos',
         content: [
-          'En cumplimiento con la normativa aplicable, te informo que el titular de este sitio web (luisdavidmag.com) es Luis David Mag, profesional independiente con domicilio en México. Puedes contactarme en: yosoy@luisdavidmag.com.',
+          'En cumplimiento con el deber de información general, se hace constar que el titular de este sitio web (luisdavidmag.com) es Luis David Mag, profesional independiente con domicilio en México. Para cualquier consulta o comunicación, puedes contactar a través del correo electrónico: yosoy@luisdavidmag.com.',
         ],
       },
       {
         heading: '2. Objeto del Sitio',
         content: [
-          'Este sitio web tiene por objeto presentar mi portafolio profesional, experiencia y servicios en Data Engineering e Inteligencia Artificial. El contenido es de carácter informativo y promocional de mi marca personal.',
+          'Este sitio web tiene un carácter profesional y formativo. Su finalidad es presentar el portafolio de proyectos, la experiencia en Ingeniería de Datos e Inteligencia Artificial de Luis David Mag, compartir recursos educativos útiles y ofrecer herramientas web interactivas (Mini Apps) de forma demostrativa.',
         ],
       },
       {
-        heading: '3. Propiedad Intelectual',
+        heading: '3. Condiciones de Uso de las Mini Apps de IA',
         content: [
-          'Todo el contenido de este sitio web (textos, imágenes, logotipos, código fuente y estructura) es propiedad intelectual de Luis David Mag o cuento con las licencias/permisos necesarios para su uso.',
-          'Queda prohibida la reproducción, distribución o modificación total o parcial del contenido sin mi autorización expresa por escrito.',
+          'El acceso y uso de las Mini Apps de IA integradas en el sitio web (como el Auditor SEO Express y el creador de Miniaturas) están sujetos a las siguientes condiciones:',
+          '• Responsabilidad sobre Claves de API: Estas herramientas requieren que el usuario ingrese sus propias credenciales (claves de API) provistas por OpenAI o Google. El usuario es el único responsable de la custodia, facturación y límites de consumo asociados a sus respectivas claves de API. Luis David Mag no asume ninguna responsabilidad por cargos económicos o bloqueos de cuenta que se deriven del uso de estas APIs en el sitio.',
+          '• Carácter Orientativo y de Demostración: Los reportes de auditoría, textos generados, imágenes creadas y cualquier otro resultado devuelto por las Mini Apps son generados de manera automatizada mediante modelos de lenguaje e IA. Tienen un propósito educativo, orientativo y de prototipado rápido. No constituyen, bajo ningún concepto, una auditoría formal, asesoría jurídica, consejo de negocios ni un diagnóstico técnico vinculante. El usuario debe evaluar los resultados bajo su propio criterio profesional.',
+          '• Dependencia de Proveedores de Terceros: El funcionamiento de las Mini Apps depende de la disponibilidad y correcto funcionamiento de los servicios externos de OpenAI y Google. Luis David Mag no se responsabiliza de interrupciones del servicio, cambios en sus políticas, deprecación de modelos o fallas técnicas en sus plataformas de API.',
+          '• Uso de Proxies de Terceros: La funcionalidad de análisis por URL utiliza un CORS proxy público (api.allorigins.win) para recuperar el contenido HTML público de los sitios indicados. Queda estrictamente prohibido utilizar esta funcionalidad para intentar extraer o analizar contenido confidencial, privado o protegido por derechos de propiedad de terceros sin la debida autorización de los mismos.',
         ],
       },
       {
-        heading: '4. Limitación de Responsabilidad',
+        heading: '4. Propiedad Intelectual e Industrial',
         content: [
-          'El contenido de este sitio se ofrece "tal cual". Aunque me esfuerzo por mantener la información actualizada y precisa, no garantizo la inexistencia de errores o interrupciones en el acceso al sitio.',
-          'No me hago responsable de los daños que puedan derivarse del uso de la información aquí contenida ni de problemas técnicos ajenos a mi control (como caídas de servidores o redes).',
+          'Todos los textos, diseños de interfaz, logotipos, código de programación de las páginas, estructura de navegación y contenidos publicados en este sitio (salvo las aportaciones de recursos de terceros debidamente citados o el contenido HTML público de terceros analizado) son propiedad intelectual de Luis David Mag o cuentan con los derechos de uso correspondientes.',
+          'Queda prohibida la reproducción, distribución, comunicación pública o transformación de cualquiera de los elementos de este sitio con fines comerciales sin el consentimiento expreso y por escrito de su titular.',
         ],
       },
       {
-        heading: '5. Enlaces Externos',
+        heading: '5. Exclusión de Responsabilidad',
         content: [
-          'Este sitio puede contener enlaces a sitios web de terceros (como LinkedIn, GitHub, etc.). No tengo control sobre el contenido o las prácticas de privacidad de dichos sitios, por lo que no asumo responsabilidad alguna por ellos.',
+          'El titular realiza los mayores esfuerzos para mantener la información del sitio web veraz, actualizada y libre de virus o elementos dañinos. Sin embargo, el contenido de este sitio se ofrece "tal cual".',
+          'El titular no se hace responsable de daños o perjuicios directos o indirectos que puedan derivarse de interrupciones en el servicio, caídas de servidores, fallas en la red de telecomunicaciones, ataques informáticos o del uso e interpretación que los usuarios hagan de la información y herramientas aquí dispuestas.',
         ],
       },
       {
-        heading: '6. Legislación Aplicable',
+        heading: '6. Enlaces Externos (Links)',
         content: [
-          'Este Aviso Legal se rige por la legislación vigente en los Estados Unidos Mexicanos. Para cualquier controversia que pudiera suscitarse, las partes se someten a los juzgados y tribunales competentes en México.',
+          'Este sitio contiene enlaces que dirigen a plataformas externas (como Skool, LinkedIn, GitHub, etc.). El titular no ejerce control alguno sobre dichos sitios web ni asume responsabilidad por sus políticas de privacidad, contenidos, veracidad de sus propuestas o el uso que el usuario haga de ellos.',
         ],
       },
       {
-        heading: '7. Modificaciones',
+        heading: '7. Legislación y Jurisdicción Aplicable',
         content: [
-          'Me reservo la facultad de efectuar, en cualquier momento y sin necesidad de previo aviso, modificaciones y actualizaciones de la información contenida en el sitio, de la configuración y presentación de éste y de las condiciones de acceso.',
+          'Para la resolución de todas las controversias o cuestiones relacionadas con este sitio web o de las actividades en él desarrolladas, será de aplicación la legislación vigente en los Estados Unidos Mexicanos, sometiéndose las partes expresamente a la jurisdicción de los juzgados y tribunales competentes de México, renunciando a cualquier otro fuero que pudiera corresponderles.',
         ],
       },
     ],

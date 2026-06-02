@@ -25,6 +25,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import CheckIcon from '@mui/icons-material/Check';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -43,15 +44,22 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LaunchIcon from '@mui/icons-material/Launch';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import CloseIcon from '@mui/icons-material/Close';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WarningIcon from '@mui/icons-material/Warning';
+import ErrorIcon from '@mui/icons-material/Error';
+import BoltIcon from '@mui/icons-material/Bolt';
+import PrintIcon from '@mui/icons-material/Print';
 
 import { Section, AppSelect, PrimaryButton, SecondaryButton } from '@/components';
 import { siteContent } from '@/content/site';
 import { brandColors } from '@/theme/tokens';
-import { generateOpenAICompletion, generateGeminiCompletion, generateOpenAIImages, generateOpenAIImageEdit } from '@/services/aiService';
+import { generateOpenAICompletion, generateGeminiCompletion, generateOpenAIImages, generateOpenAIImageEdit, generateGeminiStructuredAudit } from '@/services/aiService';
+import type { SeoAuditResult } from '@/services/aiService';
 
 type ActiveTab = 'apps' | 'config';
 
 export default function MiniAppsPage() {
+  const theme = useTheme();
   const [mounted, setMounted] = useState(false);
   const [activeTab, setActiveTab] = useState<ActiveTab>('apps');
   
@@ -85,27 +93,11 @@ export default function MiniAppsPage() {
   const [thumbRefPreview, setThumbRefPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // App 2: Image Studio Inputs
-  const [studioIdea, setStudioIdea] = useState('');
-  const [studioRatio, setStudioRatio] = useState('1:1');
-  const [studioStyle, setStudioStyle] = useState('Fotográfico');
-
-  // App 3: Digital Clones Inputs
-  const [cloneGender, setCloneGender] = useState('Avatar Masculino');
-  const [cloneVoice, setCloneVoice] = useState('Español Neutro');
-  const [clonePrompt, setClonePrompt] = useState('');
-
-  // App 4: Form Assistant Inputs
-  const [formText, setFormText] = useState('');
-  const [formTarget, setFormTarget] = useState('Contacto de Negocio');
-
-  // App 5: Encuestas IA Inputs
-  const [surveyTopic, setSurveyTopic] = useState('');
-  const [surveyLength, setSurveyLength] = useState('5 preguntas');
-
-  // App 6: EduSlide Inputs
-  const [eduSubject, setEduSubject] = useState('');
-  const [eduTone, setEduTone] = useState('Didáctico');
+  // App 2: Auditor SEO Express Inputs
+  const [auditInput, setAuditInput] = useState('');
+  const [auditInputType, setAuditInputType] = useState<'url' | 'html'>('url');
+  const [auditModel, setAuditModel] = useState('gemini-2.5-flash');
+  const [auditResult, setAuditResult] = useState<SeoAuditResult | null>(null);
 
   // Execution states
   const [loading, setLoading] = useState(false);
@@ -336,6 +328,8 @@ This is a thumbnail background for content creators. Highly detailed, colorful, 
     setLoading(false);
     handleClearRefImage();
     setThumbPromptUsed('');
+    setAuditInput('');
+    setAuditResult(null);
   };
 
   // Reference image handlers
@@ -633,6 +627,17 @@ This is a thumbnail background for content creators. Highly detailed, colorful, 
   // Currently selected image for the mockup preview
   const activeImageUrl = imageUrls[selectedImageIdx] || '';
 
+  const getScoreColor = (score: number, theme: any) => {
+    if (score >= 90) return brandColors.secondary;
+    if (score >= 70) return theme.palette.success.main;
+    if (score >= 40) return theme.palette.warning.main;
+    return theme.palette.error.main;
+  };
+
+  const handlePrintReport = () => {
+    window.print();
+  };
+
   const handleGenerate = async () => {
     setError('');
     setOutput('');
@@ -695,59 +700,69 @@ This is a thumbnail background for content creators. Highly detailed, colorful, 
         setLoadingStep('');
       }
 
-    } else {
-      // FRONT-END ONLY MOCK EXPERIENCES FOR THE OTHER 5 APES
-      setLoadingStep('Analizando parámetros y simulando procesamiento...');
-      
-      setTimeout(() => {
+    } else if (selectedAppId === 'seo-audit') {
+      setAuditResult(null);
+      if (!geminiKey.trim()) {
+        setError('Para realizar la auditoría necesitas configurar una clave de Google Gemini en la pestaña de configuración.');
+        setLoading(false);
+        return;
+      }
+      if (!auditInput.trim()) {
+        setError('Por favor, ingresa una URL o pega el código HTML de tu sitio.');
+        setLoading(false);
+        return;
+      }
+
+      let contentToAnalyze = auditInput;
+
+      if (auditInputType === 'url') {
+        setLoadingStep('Obteniendo HTML del sitio web a través de un proxy...');
+        let targetUrl = auditInput.trim();
+        if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+          targetUrl = 'https://' + targetUrl;
+        }
+
+        try {
+          const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+          
+          const response = await fetch(proxyUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            throw new Error(`Error de conexión (HTTP ${response.status})`);
+          }
+
+          contentToAnalyze = await response.text();
+
+          if (!contentToAnalyze || contentToAnalyze.trim().length < 100) {
+            throw new Error('El contenido del sitio web es demasiado corto o no se pudo extraer.');
+          }
+        } catch (err: any) {
+          const isAbort = err.name === 'AbortError';
+          setError(isAbort 
+            ? 'La descarga del sitio tardó demasiado. Por favor, intenta copiando y pegando el HTML crudo directamente.' 
+            : `No se pudo descargar la URL: ${err.message}. Te recomendamos copiar y pegar el HTML crudo directamente.`);
+          setLoading(false);
+          return;
+        }
+      }
+
+      setLoadingStep('Analizando conversión, SEO técnico, UX y copywriting con Gemini...');
+      try {
+        const auditResponse = await generateGeminiStructuredAudit(geminiKey, contentToAnalyze, auditModel);
+        if (auditResponse.ok && auditResponse.result) {
+          setAuditResult(auditResponse.result);
+        } else {
+          setError(auditResponse.message || 'Ocurrió un error al realizar la auditoría.');
+        }
+      } catch (err: any) {
+        setError(`Error durante la auditoría: ${err.message || err}`);
+      } finally {
         setLoading(false);
         setLoadingStep('');
-        
-        if (selectedAppId === 'image-studio') {
-          setOutput(`[MOCK GENERATION: Image Studio]
-Esta aplicación es parte del demostrador frontend de este portfolio.
-Parámetros recibidos:
-- Idea: "${studioIdea || 'Sin descripción'}"
-- Proporción: ${studioRatio}
-- Estilo: ${studioStyle}
-
-Para conectar esta herramienta con tu API Key personal en producción, por favor solicita la versión completa.`);
-        } else if (selectedAppId === 'digital-clones') {
-          setOutput(`[MOCK GENERATION: Digital Clones]
-Clon de voz y avatar generado en simulación.
-Parámetros recibidos:
-- Tipo: ${cloneGender}
-- Voz seleccionada: ${cloneVoice}
-- Texto narración: "${clonePrompt || 'Sin texto'}"
-
-Vídeo renderizado: Exitoso (Entorno de pruebas).`);
-        } else if (selectedAppId === 'form-assistant') {
-          setOutput(`[MOCK GENERATION: Form Assistant]
-Asistente listo. Formulario estructurado para "${formTarget}".
-Texto extraído procesado: "${formText || 'Ninguno'}"
-
-Sugerencia de la IA:
-Completa el campo de contacto utilizando los datos extraídos para acelerar la conversión.`);
-        } else if (selectedAppId === 'encuestas-ia') {
-          setOutput(`[MOCK GENERATION: Encuestas IA]
-Estructura de cuestionario creada para: "${surveyTopic || 'Satisfacción de Clientes'}".
-Longitud: ${surveyLength}
-
-Preguntas generadas:
-1. ¿Cómo calificaría la rapidez de nuestro servicio? (Escala 1-5)
-2. ¿Qué aspecto de nuestra atención considera que requiere mayor optimización?
-3. ¿Recomendaría nuestras soluciones tecnológicas a otros colegas de su sector?`);
-        } else if (selectedAppId === 'eduslide') {
-          setOutput(`[MOCK GENERATION: EduSlide]
-Presentación estructurada exitosamente.
-- Tema: "${eduSubject || 'Fundamentos de IA en el retail'}"
-- Tono: ${eduTone}
-
-Diapositiva 1: Introducción y conceptos fundamentales.
-Diapositiva 2: Casos prácticos de automatización en negocios físicos.
-Diapositiva 3: Conclusiones y siguientes pasos.`);
-        }
-      }, 2000);
+      }
     }
   };
 
@@ -1104,6 +1119,12 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                   <strong style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setActiveTab('config')}>Configurar APIs</strong>.
                 </Alert>
               )}
+              {selectedAppId === 'seo-audit' && !geminiKey.trim() && (
+                <Alert severity="warning" sx={{ mb: 4 }}>
+                  Para utilizar esta aplicación necesitas configurar tu API Key de Google Gemini. Dirígete a la pestaña{' '}
+                  <strong style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setActiveTab('config')}>Configurar APIs</strong>.
+                </Alert>
+              )}
 
               {/* The Grid layout for selected app workbench - LARGE SCALE */}
               <Grid container spacing={4}>
@@ -1125,16 +1146,9 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                         </Box>
                       ) : (
                         <Box sx={{ mb: 3 }}>
-                          <AppSelect
-                            id="wb-provider-select"
-                            label="Proveedor de IA"
-                            value={provider}
-                            options={[
-                              { value: 'openai', label: `OpenAI${!openaiKey.trim() ? ' (Sin configurar)' : ''}`, disabled: !openaiKey.trim() },
-                              { value: 'gemini', label: `Google Gemini${!geminiKey.trim() ? ' (Sin configurar)' : ''}`, disabled: !geminiKey.trim() },
-                            ]}
-                            onChange={(val) => setProvider(val as 'openai' | 'gemini')}
-                          />
+                          <Alert severity="info" sx={{ fontSize: '0.8125rem', py: 0.5, px: 1.5 }} icon={<InfoIcon fontSize="small" />}>
+                            Esta aplicación requiere la API de <strong>Google Gemini</strong> para realizar auditorías estructuradas.
+                          </Alert>
                         </Box>
                       )}
 
@@ -1385,162 +1399,68 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                         </Stack>
                       )}
 
-                      {/* APP 2: Image Studio Form (Mock) */}
-                      {selectedAppId === 'image-studio' && (
+                      {/* APP 2: Auditor SEO Express Forms */}
+                      {selectedAppId === 'seo-audit' && (
                         <Stack spacing={3}>
-                          <TextField
-                            label="Describe la Imagen"
-                            placeholder="Ej. Un café moderno en el centro..."
-                            value={studioIdea}
-                            onChange={(e) => setStudioIdea(e.target.value)}
-                            multiline
-                            minRows={3}
-                            fullWidth
-                          />
-                          <AppSelect
-                            id="ratio-select"
-                            label="Proporción"
-                            value={studioRatio}
-                            options={[
-                              { value: '1:1', label: 'Cuadrado (1:1)' },
-                              { value: '16:9', label: 'Widescreen (16:9)' },
-                              { value: '9:16', label: 'Vertical / Stories (9:16)' },
-                            ]}
-                            onChange={setStudioRatio}
-                          />
-                          <AppSelect
-                            id="style-select"
-                            label="Estilo"
-                            value={studioStyle}
-                            options={[
-                              { value: 'Fotográfico', label: 'Fotográfico Realista' },
-                              { value: 'Arte Digital', label: 'Arte Digital Ilustrado' },
-                              { value: 'Bosquejo', label: 'Bosquejo Técnico' },
-                            ]}
-                            onChange={setStudioStyle}
-                          />
-                        </Stack>
-                      )}
+                          <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}>
+                            <Tabs
+                              value={auditInputType}
+                              onChange={(_, val: 'url' | 'html') => setAuditInputType(val)}
+                              textColor="primary"
+                              indicatorColor="primary"
+                              variant="fullWidth"
+                              aria-label="Tipo de entrada para auditoría"
+                            >
+                              <Tab label="URL de Sitio" value="url" sx={{ fontWeight: 600 }} />
+                              <Tab label="Código HTML" value="html" sx={{ fontWeight: 600 }} />
+                            </Tabs>
+                          </Box>
 
-                      {/* APP 3: Digital Clones Form (Mock) */}
-                      {selectedAppId === 'digital-clones' && (
-                        <Stack spacing={3}>
-                          <AppSelect
-                            id="avatar-select"
-                            label="Avatar"
-                            value={cloneGender}
-                            options={[
-                              { value: 'Avatar Masculino', label: 'Avatar Corporativo Masculino' },
-                              { value: 'Avatar Femenino', label: 'Avatar Corporativo Femenino' },
-                              { value: 'Humanoide 3D', label: 'Robot Humanoide 3D' },
-                            ]}
-                            onChange={setCloneGender}
-                          />
-                          <AppSelect
-                            id="voice-select"
-                            label="Voz de Narración"
-                            value={cloneVoice}
-                            options={[
-                              { value: 'Español Neutro', label: 'Español Latino Neutro (Hombre)' },
-                              { value: 'Español España', label: 'Español España (Mujer)' },
-                              { value: 'Inglés Profundo', label: 'Inglés Profesional (Hombre)' },
-                            ]}
-                            onChange={setCloneVoice}
-                          />
-                          <TextField
-                            label="Guión de Voz (Script)"
-                            placeholder="Escribe el mensaje que el clon de voz pronunciará..."
-                            value={clonePrompt}
-                            onChange={(e) => setClonePrompt(e.target.value)}
-                            multiline
-                            minRows={3}
-                            fullWidth
-                          />
-                        </Stack>
-                      )}
+                          {auditInputType === 'url' ? (
+                            <TextField
+                              label="URL del Sitio Web"
+                              placeholder="Ej. https://misitio.com o misitio.com"
+                              value={auditInput}
+                              onChange={(e) => setAuditInput(e.target.value)}
+                              fullWidth
+                              helperText="Se utilizará un proxy CORS para descargar y analizar el código HTML público del sitio."
+                            />
+                          ) : (
+                            <TextField
+                              label="Código HTML Crudo o Texto del Sitio"
+                              placeholder="Pega el código fuente de tu landing page o el texto completo aquí..."
+                              value={auditInput}
+                              onChange={(e) => setAuditInput(e.target.value)}
+                              multiline
+                              minRows={8}
+                              maxRows={15}
+                              fullWidth
+                              helperText="Pega el código HTML directamente. Útil para páginas detrás de un login o firewall."
+                            />
+                          )}
 
-                      {/* APP 4: Form Assistant Form (Mock) */}
-                      {selectedAppId === 'form-assistant' && (
-                        <Stack spacing={3}>
                           <AppSelect
-                            id="form-target-select"
-                            label="Objetivo del Formulario"
-                            value={formTarget}
+                            id="audit-model-select"
+                            label="Modelo Gemini"
+                            value={auditModel}
                             options={[
-                              { value: 'Contacto de Negocio', label: 'Contacto de Negocio' },
-                              { value: 'Registro de Evento', label: 'Registro de Evento/Webinar' },
-                              { value: 'Encuesta de Feedback', label: 'Encuesta de Feedback Rápido' },
+                              { value: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash (Recomendado - Rápido)' },
+                              { value: 'gemini-2.5-pro', label: 'Gemini 2.5 Pro (Análisis profundo)' },
                             ]}
-                            onChange={setFormTarget}
-                          />
-                          <TextField
-                            label="Texto o Datos en sucio"
-                            placeholder="Pega correos, apuntes, transcripciones para procesar..."
-                            value={formText}
-                            onChange={(e) => setFormText(e.target.value)}
-                            multiline
-                            minRows={4}
-                            fullWidth
-                          />
-                        </Stack>
-                      )}
-
-                      {/* APP 5: Encuestas IA Form (Mock) */}
-                      {selectedAppId === 'encuestas-ia' && (
-                        <Stack spacing={3}>
-                          <TextField
-                            label="Tema de la Encuesta"
-                            placeholder="Ej. Satisfacción con el nuevo producto de software"
-                            value={surveyTopic}
-                            onChange={(e) => setSurveyTopic(e.target.value)}
-                            fullWidth
-                          />
-                          <AppSelect
-                            id="survey-len-select"
-                            label="Longitud"
-                            value={surveyLength}
-                            options={[
-                              { value: '3 preguntas', label: 'Cuestionario Corto (3 preguntas)' },
-                              { value: '5 preguntas', label: 'Cuestionario Medio (5 preguntas)' },
-                              { value: '10 preguntas', label: 'Cuestionario Extendido (10 preguntas)' },
-                            ]}
-                            onChange={setSurveyLength}
-                          />
-                        </Stack>
-                      )}
-
-                      {/* APP 6: EduSlide Form (Mock) */}
-                      {selectedAppId === 'eduslide' && (
-                        <Stack spacing={3}>
-                          <TextField
-                            label="Tema de la Presentación"
-                            placeholder="Ej. Fundamentos prácticos de ingeniería de datos..."
-                            value={eduSubject}
-                            onChange={(e) => setEduSubject(e.target.value)}
-                            fullWidth
-                          />
-                          <AppSelect
-                            id="edu-tone-select"
-                            label="Tono de Presentación"
-                            value={eduTone}
-                            options={[
-                              { value: 'Didáctico', label: 'Didáctico y Claro' },
-                              { value: 'Corporativo', label: 'Formal y Corporativo' },
-                              { value: 'Inspiracional', label: 'Inspiracional y Enérgico' },
-                            ]}
-                            onChange={setEduTone}
+                            onChange={setAuditModel}
+                            helperText="Gemini 2.5 Flash ofrece respuestas rápidas y excelente soporte para esquemas JSON estructurados."
                           />
                         </Stack>
                       )}
 
                       <PrimaryButton
                         onClick={handleGenerate}
-                        disabled={loading || (selectedAppId === 'youtube-thumbnail-pro' ? !openaiKey.trim() : (!openaiKey.trim() && !geminiKey.trim()))}
+                        disabled={loading || (selectedAppId === 'youtube-thumbnail-pro' ? !openaiKey.trim() : !geminiKey.trim())}
                         fullWidth
                         sx={{ mt: 4 }}
                         startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <AutoAwesomeIcon />}
                       >
-                        {loading ? 'Procesando...' : 'Ejecutar Aplicación'}
+                        {loading ? 'Procesando...' : (selectedAppId === 'seo-audit' ? 'Iniciar Auditoría' : 'Ejecutar Aplicación')}
                       </PrimaryButton>
                     </CardContent>
                   </Card>
@@ -1572,7 +1492,7 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                         )}
 
                         {/* Idle */}
-                        {!loading && !output && imageUrls.length === 0 && !error && (
+                        {!loading && !output && imageUrls.length === 0 && !auditResult && !error && (
                           <Box
                             sx={{
                               flex: 1,
@@ -1586,10 +1506,10 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                           >
                             <AutoAwesomeIcon sx={{ fontSize: 64, color: 'action.disabled', mb: 2 }} />
                             <Typography variant="h5" component="p" sx={{ fontWeight: 600, mb: 1, color: 'text.primary' }}>
-                              Listo para Generar
+                              {selectedAppId === 'seo-audit' ? 'Listo para Auditar' : 'Listo para Generar'}
                             </Typography>
                             <Typography variant="body2" sx={{ maxWidth: 420 }}>
-                              Configura los parámetros de la izquierda y haz clic en <strong>Ejecutar Aplicación</strong> para desplegar la respuesta de la IA aquí.
+                              Configura los parámetros de la izquierda y haz clic en <strong>{selectedAppId === 'seo-audit' ? 'Iniciar Auditoría' : 'Ejecutar Aplicación'}</strong> para desplegar la respuesta de la IA aquí.
                             </Typography>
                           </Box>
                         )}
@@ -1615,10 +1535,33 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                           </Box>
                         )}
 
-                        {/* Mock Text result (App 2 to 6) */}
-                        {!loading && output && selectedAppId !== 'youtube-thumbnail-pro' && (
-                          <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                        {/* Real SEO Audit Results (App 2) */}
+                        {!loading && auditResult && selectedAppId === 'seo-audit' && (
+                          <Box id="seo-audit-report-dashboard" sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                            <style dangerouslySetInnerHTML={{ __html: `
+                              @media print {
+                                header, footer, nav, button, .no-print, .MuiTabs-root, .MuiAlert-root, .MuiButton-root, .no-print-custom {
+                                  display: none !important;
+                                }
+                                body {
+                                  background-color: white !important;
+                                  color: black !important;
+                                }
+                                #seo-audit-report-dashboard {
+                                  width: 100% !important;
+                                  max-width: 100% !important;
+                                  margin: 0 !important;
+                                  padding: 0 !important;
+                                }
+                                .print-full-width {
+                                  width: 100% !important;
+                                  max-width: 100% !important;
+                                  flex-basis: 100% !important;
+                                }
+                              }
+                            `}} />
                             <Box
+                              className="no-print-custom"
                               sx={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -1626,38 +1569,175 @@ Diapositiva 3: Conclusiones y siguientes pasos.`);
                                 borderBottom: '1px solid',
                                 borderColor: 'divider',
                                 pb: 1.5,
-                                mb: 2.5,
+                                mb: 3,
                               }}
                             >
                               <Typography variant="overline" color="text.secondary">
-                                Demo Frontend: Simulación Exitosa
+                                Reporte de Auditoría Generado
                               </Typography>
-                              <Tooltip title={copied ? '¡Copiado!' : 'Copiar al portapapeles'}>
-                                <IconButton
-                                  onClick={handleCopyOutput}
-                                  color={copied ? 'success' : 'primary'}
-                                  aria-label="Copiar salida"
+                              <Button
+                                size="small"
+                                startIcon={<PrintIcon />}
+                                onClick={handlePrintReport}
+                                variant="outlined"
+                                color="primary"
+                              >
+                                Exportar PDF
+                              </Button>
+                            </Box>
+
+                            {/* Circular Gauge Score */}
+                            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 4, textAlign: 'center' }}>
+                              <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                                <CircularProgress
+                                  variant="determinate"
+                                  value={auditResult.overallScore}
+                                  size={100}
+                                  thickness={6}
+                                  sx={{
+                                    color: getScoreColor(auditResult.overallScore, theme),
+                                    backgroundColor: 'action.hover',
+                                  }}
+                                />
+                                <Box
+                                  sx={{
+                                    top: 0,
+                                    left: 0,
+                                    bottom: 0,
+                                    right: 0,
+                                    position: 'absolute',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                  }}
                                 >
-                                  {copied ? <CheckIcon /> : <ContentCopyIcon />}
-                                </IconButton>
-                              </Tooltip>
+                                  <Typography variant="h4" component="div" sx={{ fontWeight: 800 }}>
+                                    {auditResult.overallScore}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                              <Typography variant="h5" component="div" sx={{ mt: 2, fontWeight: 700 }}>
+                                Calificación de Rendimiento General
+                              </Typography>
                             </Box>
-                            <Box
-                              sx={{
-                                flex: 1,
-                                whiteSpace: 'pre-wrap',
-                                fontFamily: 'monospace',
-                                fontSize: '0.9375rem',
-                                lineHeight: 1.6,
-                                overflowY: 'auto',
-                                maxHeight: 450,
-                              }}
-                            >
-                              {output}
-                            </Box>
-                            <Alert severity="info" sx={{ mt: 3, fontSize: '0.8125rem' }}>
-                              Nota: Esta es la vista previa de estructura. La API está simulada por frontend.
-                            </Alert>
+
+                            {/* Executive Summary */}
+                            <Card variant="outlined" sx={{ mb: 4, bgcolor: 'action.hover' }}>
+                              <CardContent sx={{ p: 3 }}>
+                                <Typography variant="h5" sx={{ fontWeight: 700, mb: 1.5 }}>
+                                  Resumen Ejecutivo
+                                </Typography>
+                                <Typography variant="body1" sx={{ color: 'text.secondary', lineHeight: 1.7 }}>
+                                  {auditResult.summary}
+                                </Typography>
+                              </CardContent>
+                            </Card>
+
+                            {/* Category scores progress bars */}
+                            <Stack spacing={2.5} sx={{ mb: 4 }}>
+                              <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+                                Desglose de Calificaciones
+                              </Typography>
+                              {auditResult.categories.map((cat: any) => {
+                                const catColor = getScoreColor(cat.score, theme);
+                                return (
+                                  <Box key={cat.name}>
+                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.75 }}>
+                                      <Typography variant="body2" sx={{ fontWeight: 600 }}>{cat.name}</Typography>
+                                      <Typography variant="body2" sx={{ fontWeight: 700, color: catColor }}>{cat.score}/100</Typography>
+                                    </Box>
+                                    <Box sx={{ width: '100%', height: 8, bgcolor: 'action.hover', borderRadius: 4, overflow: 'hidden' }}>
+                                      <Box sx={{ width: `${cat.score}%`, height: '100%', bgcolor: catColor, borderRadius: 4 }} />
+                                    </Box>
+                                  </Box>
+                                );
+                              })}
+                            </Stack>
+
+                            {/* Strengths & Quick Wins */}
+                            <Grid container spacing={3} sx={{ mb: 4 }}>
+                              <Grid item xs={12} sm={6} className="print-full-width">
+                                <Card variant="outlined" sx={{ height: '100%', borderColor: alpha(theme.palette.success.main, 0.3) }}>
+                                  <CardContent sx={{ p: 2.5 }}>
+                                    <Typography variant="h6" sx={{ color: theme.palette.success.main, fontWeight: 700, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                      <CheckCircleIcon fontSize="small" /> Fortalezas Clave
+                                    </Typography>
+                                    <Stack spacing={1.5}>
+                                      {auditResult.strengths.map((str: string, idx: number) => (
+                                        <Typography key={idx} variant="body2" sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
+                                          <span style={{ color: theme.palette.success.main }}>✓</span> {str}
+                                        </Typography>
+                                      ))}
+                                    </Stack>
+                                  </CardContent>
+                                </Card>
+                              </Grid>
+                              <Grid item xs={12} sm={6} className="print-full-width">
+                                <Card variant="outlined" sx={{ height: '100%', borderColor: alpha(brandColors.primary, 0.3) }}>
+                                  <CardContent sx={{ p: 2.5 }}>
+                                    <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 700, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                                      <BoltIcon fontSize="small" /> Oportunidades Rápidas (Quick Wins)
+                                    </Typography>
+                                    <Stack spacing={1.5}>
+                                      {auditResult.quickWins.map((win: string, idx: number) => (
+                                        <Typography key={idx} variant="body2" sx={{ display: 'flex', gap: 1, alignItems: 'flex-start' }}>
+                                          <span style={{ color: brandColors.primary }}>⚡</span> {win}
+                                        </Typography>
+                                      ))}
+                                    </Stack>
+                                  </CardContent>
+                                </Card>
+                              </Grid>
+                            </Grid>
+
+                            {/* Findings and Recommendations */}
+                            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2.5 }}>
+                              Hallazgos y Recomendaciones Priorizadas
+                            </Typography>
+                            <Stack spacing={2.5}>
+                              {auditResult.categories.flatMap((cat: any) => cat.findings.map((finding: any, idx: number) => {
+                                const severityColor =
+                                  finding.severity === 'critical'
+                                    ? theme.palette.error.main
+                                    : finding.severity === 'warning'
+                                    ? theme.palette.warning.main
+                                    : theme.palette.info.main;
+
+                                const severityLabel =
+                                  finding.severity === 'critical'
+                                    ? '🔴 Crítico'
+                                    : finding.severity === 'warning'
+                                    ? '🟡 Advertencia'
+                                    : '🔵 Sugerencia';
+
+                                return (
+                                  <Card key={idx} variant="outlined" sx={{ borderLeft: `4px solid ${severityColor}`, breakInside: 'avoid' }}>
+                                    <CardContent sx={{ p: 2.5 }}>
+                                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1.5, flexWrap: 'wrap', gap: 1 }}>
+                                        <Chip label={severityLabel} size="small" sx={{ bgcolor: alpha(severityColor, 0.1), color: severityColor, fontWeight: 700, border: 'none' }} />
+                                        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
+                                          Categoría: {cat.name}
+                                        </Typography>
+                                      </Box>
+                                      <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+                                        {finding.title}
+                                      </Typography>
+                                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2, lineHeight: 1.6 }}>
+                                        {finding.description}
+                                      </Typography>
+                                      <Box sx={{ bgcolor: 'action.hover', p: 2, borderRadius: 1.5 }}>
+                                        <Typography variant="caption" sx={{ fontWeight: 700, color: 'primary.main', display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
+                                          <BoltIcon fontSize="small" /> ACCIÓN DE MEJORA RECOMENDADA:
+                                        </Typography>
+                                        <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.primary', lineHeight: 1.5 }}>
+                                          {finding.recommendation}
+                                        </Typography>
+                                      </Box>
+                                    </CardContent>
+                                  </Card>
+                                );
+                              }))}
+                            </Stack>
                           </Box>
                         )}
 

@@ -2,8 +2,6 @@
 
 import { Container, Typography, Box, Stack, Divider } from '@mui/material';
 import { Section } from '@/components';
-import { brandColors } from '@/theme/tokens';
-import { alpha } from '@mui/material/styles';
 
 interface LegalLayoutProps {
   title: string;
@@ -12,8 +10,6 @@ interface LegalLayoutProps {
 }
 
 export default function LegalLayout({ title, lastUpdated, children }: LegalLayoutProps) {
-  const dateColor = alpha(brandColors.black, 0.6);
-
   return (
     <Box sx={{ minHeight: '80vh', pt: { xs: 12, md: 16 }, pb: 10 }}>
       <Container maxWidth="md">
@@ -34,7 +30,7 @@ export default function LegalLayout({ title, lastUpdated, children }: LegalLayou
           <Typography
             variant="subtitle1"
             sx={{
-              color: dateColor,
+              color: 'text.secondary',
               fontStyle: 'italic',
             }}
           >
