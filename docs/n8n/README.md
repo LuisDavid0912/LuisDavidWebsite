@@ -7,7 +7,7 @@ de n8n). Los JSON de esta carpeta son una copia de respaldo importable
 | Workflow | ID en n8n | Estado | Qué hace |
 |---|---|---|---|
 | Ofertas — API pública (GET /offers) | `rZWj6Ix5aO1DOeLj` | **Activo** | `GET /webhook/offers` → allowlist de Origin + rate limit (30 req/min/IP) → Supabase `ofertas` (`activo = true`, máx. 200) → `{ ok, count, offers }` |
-| Ofertas — Recolector (n8n → Supabase) | `ELYn1cZwGkatXOgz` | Inactivo (fuente placeholder) | Schedule diario 07:00 → fuente (placeholder) → normalización al contrato → *delete + insert* por `id` (upsert) → desactiva ofertas con `fecha_fin` vencida |
+| Ofertas — Recolector (n8n → Supabase) | `ELYn1cZwGkatXOgz` | Inactivo (ya ejecutado 1 vez: 4 ofertas demo cargadas) | Schedule diario 07:00 → fuente (placeholder) → normalización al contrato → *delete + insert* por `id` (upsert) → desactiva ofertas con `fecha_fin` vencida |
 
 Ambos usan la credencial Supabase **"Luis David"** (la misma que `Lead Capture (Website)`).
 

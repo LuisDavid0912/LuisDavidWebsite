@@ -125,25 +125,26 @@
     },
     {
       "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const today = new Date().toISOString().slice(0, 10);\nreturn [{ json: { today, now: new Date().toISOString() } }];"
+      },
+      "id": "255a838b-aa9a-4323-85af-91ca4860d447",
+      "name": "Compute Today",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        300
+      ]
+    },
+    {
+      "parameters": {
         "resource": "row",
         "operation": "update",
         "tableId": "ofertas",
-        "filterType": "manual",
-        "matchType": "allFilters",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "activo",
-              "condition": "eq",
-              "keyValue": "true"
-            },
-            {
-              "keyName": "fecha_fin",
-              "condition": "lt",
-              "keyValue": "={{ $today.toISODate() }}"
-            }
-          ]
-        },
+        "filterType": "string",
+        "filterString": "=activo=eq.true&fecha_fin=lt.{{ $json.today }}",
         "dataToSend": "defineBelow",
         "fieldsUi": {
           "fieldValues": [
@@ -153,7 +154,7 @@
             },
             {
               "fieldId": "updated_at",
-              "fieldValue": "={{ $now.toISO() }}"
+              "fieldValue": "={{ $json.now }}"
             }
           ]
         }
@@ -163,7 +164,7 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        1680,
+        1920,
         300
       ],
       "executeOnce": true,
@@ -227,6 +228,17 @@
       ]
     },
     "Insert Offers": {
+      "main": [
+        [
+          {
+            "node": "Compute Today",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Today": {
       "main": [
         [
           {
