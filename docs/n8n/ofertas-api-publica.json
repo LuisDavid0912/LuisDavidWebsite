@@ -1,0 +1,245 @@
+{
+  "name": "Ofertas — API pública (GET /offers)",
+  "meta": {
+    "n8nWorkflowId": "rZWj6Ix5aO1DOeLj",
+    "note": "Exportado desde n8n.luisdavidmag.com. Fuente de verdad: el workflow en n8n."
+  },
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Ofertas — API pública\n\nConsumida por luisdavidmag.com/miniapps (Dashboard de Ofertas).\n\n- Solo GET, sin auth desde el navegador.\n- Allowlist de Origin + rate limit 30 req/min/IP (static data → requiere workflow activo).\n- Devuelve solo columnas públicas de `public.ofertas` con `activo = true` (máx. 200).\n\nContrato de datos: repo → docs/n8n-offers-contract.md",
+        "color": 4,
+        "width": 780,
+        "height": 200
+      },
+      "id": "bef8233a-8b9c-47cc-9054-312f5c380ad3",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        190,
+        250
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "offers",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://luisdavidmag.com,https://www.luisdavidmag.com,http://localhost:3000",
+          "ignoreBots": true
+        }
+      },
+      "id": "e893132d-a02b-4f38-9e7b-614e79233263",
+      "name": "Webhook GET /offers",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "857135a1-f4d8-4dd8-be76-e85ce7f21307"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const ALLOWED = ['https://luisdavidmag.com', 'https://www.luisdavidmag.com', 'http://localhost:3000'];\nconst WINDOW_MS = 60 * 1000;\nconst MAX_REQUESTS = 30;\n\nconst headers = $input.first().json.headers || {};\nconst origin = String(headers.origin || '').replace(/\\/$/, '');\nconst ip = String(headers['x-forwarded-for'] || headers['x-real-ip'] || 'unknown').split(',')[0].trim();\n\nconst store = $getWorkflowStaticData('global');\nstore.rateLimit = store.rateLimit || {};\nconst now = Date.now();\nfor (const key of Object.keys(store.rateLimit)) {\n  if (now - store.rateLimit[key].start > WINDOW_MS) delete store.rateLimit[key];\n}\nconst bucket = store.rateLimit[ip] || { start: now, count: 0 };\nif (now - bucket.start > WINDOW_MS) { bucket.start = now; bucket.count = 0; }\nbucket.count += 1;\nstore.rateLimit[ip] = bucket;\n\nconst originOk = ALLOWED.includes(origin);\nconst rateOk = bucket.count <= MAX_REQUESTS;\n\nreturn [{ json: {\n  allowed: originOk && rateOk,\n  status: !originOk ? 403 : !rateOk ? 429 : 200,\n  error: !originOk ? 'Origen no permitido.' : !rateOk ? 'Demasiadas solicitudes. Intenta en un minuto.' : null,\n  origin, ip\n} }];"
+      },
+      "id": "10e6b796-8e13-407b-956c-d879ad292d82",
+      "name": "Guard: Origin + Rate Limit",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.allowed }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "286d7939-e08c-4307-91ae-b4d9df34bfb7",
+      "name": "Is Allowed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        720,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "row",
+        "operation": "getAll",
+        "tableId": "ofertas",
+        "returnAll": false,
+        "limit": 200,
+        "filterType": "manual",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "activo",
+              "condition": "eq",
+              "keyValue": "true"
+            }
+          ]
+        }
+      },
+      "id": "f8ae832b-cd06-4f52-9d31-298b9097a935",
+      "name": "Fetch Active Offers",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        960,
+        200
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "const PUBLIC_FIELDS = ['id','titulo','categoria','origen','destino','precio','moneda','fecha_inicio','fecha_fin','detalles','url_reserva','updated_at'];\n\nconst offers = $input.all()\n  .map(item => item.json)\n  .filter(row => row && row.id)\n  .map(row => {\n    const out = {};\n    for (const f of PUBLIC_FIELDS) out[f] = row[f] ?? null;\n    out.precio = Number(out.precio) || 0;\n    out.moneda = out.moneda || 'MXN';\n    return out;\n  });\n\nreturn [{ json: { ok: true, count: offers.length, offers } }];"
+      },
+      "id": "08ebbaa4-973c-40c8-9ba7-fe0ade78809e",
+      "name": "Format Public Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "firstIncomingItem",
+        "options": {
+          "responseCode": 200,
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Cache-Control",
+                "value": "public, max-age=300"
+              }
+            ]
+          }
+        }
+      },
+      "id": "e90599d6-f834-4e48-b09b-365e557060f3",
+      "name": "Respond 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1440,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: false, message: $json.error }) }}",
+        "options": {
+          "responseCode": "={{ $json.status }}"
+        }
+      },
+      "id": "5bc84e78-58b8-499b-a51f-fe8f61c84749",
+      "name": "Respond 403/429",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        960,
+        460
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook GET /offers": {
+      "main": [
+        [
+          {
+            "node": "Guard: Origin + Rate Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guard: Origin + Rate Limit": {
+      "main": [
+        [
+          {
+            "node": "Is Allowed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Allowed?": {
+      "main": [
+        [
+          {
+            "node": "Fetch Active Offers",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond 403/429",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Active Offers": {
+      "main": [
+        [
+          {
+            "node": "Format Public Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Public Response": {
+      "main": [
+        [
+          {
+            "node": "Respond 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

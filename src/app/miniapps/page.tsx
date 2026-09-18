@@ -50,7 +50,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import BoltIcon from '@mui/icons-material/Bolt';
 import PrintIcon from '@mui/icons-material/Print';
 
-import { Section, AppSelect, PrimaryButton, SecondaryButton } from '@/components';
+import { Section, AppSelect, PrimaryButton, SecondaryButton, OffersDashboard } from '@/components';
 import { siteContent } from '@/content/site';
 import { brandColors } from '@/theme/tokens';
 import { generateOpenAICompletion, generateGeminiCompletion, generateOpenAIImages, generateOpenAIImageEdit, generateGeminiStructuredAudit } from '@/services/aiService';
@@ -1126,7 +1126,11 @@ This is a thumbnail background for content creators. Highly detailed, colorful, 
                 </Alert>
               )}
 
+              {/* Offers Dashboard: data-driven app, no API key or two-column workbench needed */}
+              {selectedAppId === 'offers-dashboard' && <OffersDashboard />}
+
               {/* The Grid layout for selected app workbench - LARGE SCALE */}
+              {selectedAppId !== 'offers-dashboard' && (
               <Grid container spacing={4}>
                 
                 {/* WORKBENCH LEFT COLUMN: Parameters form */}
@@ -2186,6 +2190,7 @@ This is a thumbnail background for content creators. Highly detailed, colorful, 
                   </Stack>
                 </Grid>
               </Grid>
+              )}
             </Box>
           )}
         </Collapse>

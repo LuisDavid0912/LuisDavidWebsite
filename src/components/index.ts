@@ -11,3 +11,4 @@ export { default as LeadCaptureForm } from './forms/LeadCaptureForm';
 export { default as ResourceCard } from './ResourceCard';
 export { default as DiagnosticSurvey } from './DiagnosticSurvey';
 export { default as AppSelect } from './ui/AppSelect';
+export { OffersDashboard } from './miniapps/offers';
